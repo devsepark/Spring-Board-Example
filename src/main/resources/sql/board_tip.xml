@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="board_tip">
+    <select id="selectBoardList" resultType="devsepark.board.model.BoardTip" >
+        SELECT id, title, writer, date_format(date,'%Y-%m-%d') date
+          FROM board_tip
+         ORDER BY id DESC 
+    </select> 
+	
+	<insert id="insertBoard" parameterType="devsepark.board.model.BoardTip" >
+    	INSERT INTO board_tip(title, writer, content, date)
+		VALUES (#{title}, #{writer}, #{content}, NOW() )
+	</insert>
+	
+    <update id="updateBoard" parameterType="devsepark.board.model.BoardTip">
+        UPDATE board_tip
+           SET title=#{title}
+             , writer=#{writer}
+             , content=#{content}
+         WHERE id=#{id}
+    </update> 
+		
+    <select id="selectBoardOne" parameterType="String" resultType="devsepark.board.model.BoardTip">
+        SELECT id, title, writer, content, DATE_FORMAT(date,'%Y-%m-%d') date
+          FROM board_tip
+         WHERE id=#{id}
+    </select> 
+
+    <delete id="deleteBoardOne" parameterType="String">
+        DELETE 
+          FROM board_tip
+         WHERE id=#{id}
+    </delete> 
+</mapper>
+
