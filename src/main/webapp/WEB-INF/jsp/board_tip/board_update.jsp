@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>board1</title>
+<title>Tip&강좌 게시판</title>
 </head>
 <body>
 	<form name="form1" action="/board/tip/article/<c:out value="${boardTip.id}"/>" method="post">

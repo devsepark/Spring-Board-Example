@@ -8,5 +8,6 @@ Spring board example. (practice project)
 
 
 1. create database (src/main/resources/sql/createDb.sql)
-2. tomcat setting (path : /, port: 80)
-3. http://localhost
+2. database setting (src/main/webapp/WEB-INF/config/context-datasource.xml)
+3. tomcat setting (path : /, port: 80)
+4. http://localhost

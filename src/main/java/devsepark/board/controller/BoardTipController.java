@@ -20,7 +20,7 @@ public class BoardTipController {
 	@Autowired
 	private BoardTipService boardTipService;
 	
-	//리스트
+	//리스트 페이지
 	@RequestMapping(value = "", method = RequestMethod.GET )
 	public String boardTipList(ModelMap modelMap) {
 		List<?> list = boardTipService.selectBoardList();
@@ -29,7 +29,7 @@ public class BoardTipController {
 		return  "/board_tip/board_list";
 	}
 	
-	//글쓰기 폼
+	//글쓰기 폼 페이지
     @RequestMapping(value = "/form", method = RequestMethod.GET)
    	public String boardForm() {
         return "/board_tip/board_form";
@@ -44,7 +44,7 @@ public class BoardTipController {
         return "redirect:/board/tip";
     }
     
-    // 글 수정
+    //글 수정 페이지
     @RequestMapping(value = "/article/{id}/form", method = RequestMethod.GET)
    	public String boardUpdate(@PathVariable String id, ModelMap modelMap) {
     	
@@ -64,7 +64,7 @@ public class BoardTipController {
         return "redirect:/board/tip";
     }    
 
-    // 글 읽기
+    //글 읽기 페이지
     @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
    	public String boardRead(@PathVariable String id, ModelMap modelMap) {
     	
@@ -75,7 +75,7 @@ public class BoardTipController {
         return "/board_tip/board_read";
     }
     
-    // 글 삭제
+    //글 삭제
     @RequestMapping(value = "/article/{id}", method = RequestMethod.DELETE)
    	public String boardDelete(@PathVariable String id) {
     	

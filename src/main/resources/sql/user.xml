@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<insert id="insertUser" parameterType="devsepark.board.model.User" >
+    	INSERT INTO user(id, password, name, email)
+		VALUES (#{id}, #{password}, #{name}, #{email} )
+	</insert>
+	
+	<select id="login" resultType="String">
+		SELECT id FROM user
+		WHERE id = #{id} and password = #{password}
+	</select>
+</mapper>
+
