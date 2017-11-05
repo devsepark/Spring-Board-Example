@@ -6,6 +6,21 @@ public class BoardTip {
 	private String writer;
 	private String content;
 	private String date;
+	private String hit;
+	
+	public String getHit() {
+		return hit;
+	}
+	public void setHit(String hit) {
+		this.hit = hit;
+	}
+	public String getIsdeleted() {
+		return isdeleted;
+	}
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
+	private String isdeleted;
 	
 	public String getId() {
 		return id;
@@ -26,7 +41,7 @@ public class BoardTip {
 		this.writer = writer;
 	}
 	public String getContent() {
-		return content;
+		return content.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setContent(String content) {
 		this.content = content;

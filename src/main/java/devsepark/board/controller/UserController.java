@@ -1,5 +1,7 @@
 package devsepark.board.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,11 +43,18 @@ public class UserController {
 	
 	//로그인
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String userLogin(@ModelAttribute User user) {
-		
-		if (userService.login(user)){
-			
+	public String userLogin(@ModelAttribute User user, HttpSession session) {
+		if (userService.login(user, session)){
+			return "redirect:/index";
 		}
+		
+		return "redirect:/user/login/form";
+	}
+	
+	//로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String userLogout(HttpSession session) {
+		userService.logout(session);
 		
 		return "redirect:/index";
 	}

@@ -5,7 +5,14 @@ public class User {
 	private String password;
 	private String name;
 	private String email;
+	private String date;
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getId() {
 		return id;
 	}

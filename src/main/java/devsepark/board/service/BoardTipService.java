@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import devsepark.board.common.PageVo;
 import devsepark.board.model.BoardTip;
 
 @Service
@@ -13,8 +14,8 @@ public class BoardTipService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<?> selectBoardList() {
-		return sqlSession.selectList("selectBoardList");
+	public List<?> selectBoardList(PageVo param) {
+		return sqlSession.selectList("selectBoardList", param);
 	}
 
 	public void insertBoard(BoardTip param) {
@@ -31,5 +32,13 @@ public class BoardTipService {
 
 	public void deleteBoardOne(String param) {
 		sqlSession.delete("deleteBoardOne", param);
+	}
+	
+	public void updateBoardHit(String param) {
+		sqlSession.update("updateBoardHit", param);
+	}
+	
+	public Integer selectBoardCount() {
+		return sqlSession.selectOne("selectBoardCount");
 	}
 }

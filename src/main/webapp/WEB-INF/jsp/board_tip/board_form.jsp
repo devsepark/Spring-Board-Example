@@ -30,6 +30,7 @@
 			</tbody>
 		</table>    
 		<a href="#" onclick="form1.submit()">저장</a>
+		<input type="submit" value="저장">
 	</form>	
 </body>
 </html>

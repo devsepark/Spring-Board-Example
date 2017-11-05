@@ -1,14 +1,37 @@
-1. 프론트 페이지 꾸미기
-2. 로그인, 회원가입
-3. 글 삭제 대신 숨기기
-4. 페이징
-5. 조회수
-6. 스크립트 실행 방지
-7. 검색
-8. Q&A 계층형 게시판
-9. 커뮤니티 (공지사항, 포럼, 자유게시판) 게시판
-10. 내 정보 기능 (쪽지, 초대, 알림)
-11. 관리자 기능 (유저목록, 밴, 신고내역)
-12. 채팅 메뉴 (채팅방, 채팅목록/초대/검색)
+- 프론트 페이지 꾸미기
+- 로그인, 회원가입, 로그아웃 (우선 세션이용, 추후 OAuth 교체)
+- 스크립트 실행 방지/기타 수정
+- 검색
+- 커뮤니티 (공지사항, 포럼, 자유게시판) 게시판
+- 내 정보 기능 (쪽지, 초대, 알림, 회원탈퇴)
+- 관리자 기능 (유저목록, 밴, 신고내역)
+- 채팅 메뉴 (채팅방, 채팅목록/초대/검색)
+- json 형식 반환 RestController 추가
+- intercepter로 관리자/유저 로그인 체크
+- 삭제된 게시물 주소로 접근시 삭제되었습니다 메시지.
+- 게시글 입력시 작성자를 입력해주세요.
 
 추후 안드로이드 연동 시, @RestController를 이용하여 json 형식으로 반환
+
+빌드 실패 시: 
+1. maven repository 확인
+2. project facets 확인 (Dynamic web module 3.0, java 1.8)
+
+mariadb 한글 오류시 :
+- my.ini
+[mysqld]
+datadir=D:/Program Files/MariaDB 10.2/data
+port=3306
+innodb_buffer_pool_size=1010M
+init_connect="SET collation_connection = utf8_general_ci"
+init_connect="SET NAMES utf8"
+character-set-server = utf8
+collation-server = utf8_general_ci
+[client]
+port=3306
+plugin-dir=D:/Program Files/MariaDB 10.2/lib/plugin
+default-character-set=utf8
+[mysqldump]
+default-character-set = utf8 
+[mysql]
+default-character-set = utf8

@@ -25,7 +25,7 @@
 				</tr>
 				<tr>
 					<td>내용</td> 
-					<td><c:out value="${boardTip.content}"/></td> 
+					<td><c:out value="${boardTip.content}" escapeXml="false"/></td> 
 				</tr>
 			</tbody>
 		</table>    

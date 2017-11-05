@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import devsepark.board.common.PageVo;
 import devsepark.board.model.BoardTip;
 import devsepark.board.service.BoardTipService;
 
@@ -22,10 +23,15 @@ public class BoardTipController {
 	
 	//리스트 페이지
 	@RequestMapping(value = "", method = RequestMethod.GET )
-	public String boardTipList(ModelMap modelMap) {
-		List<?> list = boardTipService.selectBoardList();
+	public String boardTipList(PageVo pageVo, ModelMap modelMap) {
+		
+		pageVo.pageCalculate( boardTipService.selectBoardCount()); 
+
+		List<?> list = boardTipService.selectBoardList(pageVo);
 		
 		modelMap.addAttribute("list", list);
+		modelMap.addAttribute("pageVo", pageVo);
+		
 		return  "/board_tip/board_list";
 	}
 	
@@ -46,7 +52,7 @@ public class BoardTipController {
     
     //글 수정 페이지
     @RequestMapping(value = "/article/{id}/form", method = RequestMethod.GET)
-   	public String boardUpdate(@PathVariable String id, ModelMap modelMap) {
+   	public String boardUpdateForm(@PathVariable String id, ModelMap modelMap) {
     	
     	BoardTip boardTip = boardTipService.selectBoardOne(id);
         
@@ -69,9 +75,9 @@ public class BoardTipController {
    	public String boardRead(@PathVariable String id, ModelMap modelMap) {
     	
     	BoardTip boardTip = boardTipService.selectBoardOne(id);
-        
     	modelMap.addAttribute("boardTip", boardTip);
-    	
+    	//조회수 증가
+    	boardTipService.updateBoardHit(id);
         return "/board_tip/board_read";
     }
     
