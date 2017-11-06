@@ -22,3 +22,12 @@ CREATE TABLE `board_tip` (
 	PRIMARY KEY (`id`)
 )
 	
+CREATE TABLE `board_tip_reply` (
+	`boardid` INT(11) NOT NULL,
+	`replyid` INT(11) NOT NULL,
+	`writer` VARCHAR(20) NOT NULL,
+	`content` VARCHAR(500) NULL DEFAULT NULL,
+	`date` DATETIME NULL DEFAULT NULL,
+	`isdeleted` TINYINT(2) NULL DEFAULT '0',
+	PRIMARY KEY (`replyid`)
+)

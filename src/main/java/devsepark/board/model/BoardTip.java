@@ -7,7 +7,8 @@ public class BoardTip {
 	private String content;
 	private String date;
 	private String hit;
-	
+	private String isdeleted;
+
 	public String getHit() {
 		return hit;
 	}
@@ -20,8 +21,6 @@ public class BoardTip {
 	public void setIsdeleted(String isdeleted) {
 		this.isdeleted = isdeleted;
 	}
-	private String isdeleted;
-	
 	public String getId() {
 		return id;
 	}
@@ -52,6 +51,6 @@ public class BoardTip {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-	
+
+
 }

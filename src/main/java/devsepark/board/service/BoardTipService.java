@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import devsepark.board.common.PageVo;
+import devsepark.board.common.ReplyVo;
 import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardTip;
 
@@ -34,12 +34,20 @@ public class BoardTipService {
 	public void deleteBoardOne(String param) {
 		sqlSession.delete("deleteBoardOne", param);
 	}
-	
+
 	public void updateBoardHit(String param) {
 		sqlSession.update("updateBoardHit", param);
 	}
-	
+
 	public Integer selectBoardCount(SearchVo param) {
 		return sqlSession.selectOne("selectBoardCount", param);
+	}
+
+	public void insertBoardReply(ReplyVo param) {
+		if (param.getReplyid()==null || "".equals(param.getReplyid())) {
+			sqlSession.insert("insertBoardReply", param);
+		} else {
+			sqlSession.insert("updateBoardReply", param);
+		}
 	}
 }

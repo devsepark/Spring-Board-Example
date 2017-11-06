@@ -5,60 +5,89 @@
 	<sql id="includeBoard">
 		WHERE isdeleted=0
 		<if test="searchKeyword!=null and searchKeyword!=''">
-		AND
-			<foreach item="item" index="index" open="(" close=")" separator="or" collection="searchTypeArr">
-				${item} LIKE CONCAT('%', #{searchKeyword},'%' )
+			AND
+			<foreach item="item" index="index" open="(" close=")"
+				separator="or" collection="searchTypeArr">
+				${item} LIKE CONCAT('%',
+				#{searchKeyword},'%' )
 			</foreach>
 		</if>
 	</sql>
 
-	<select id="selectBoardList" resultType="devsepark.board.model.BoardTip" parameterType="devsepark.board.common.SearchVo">
+	<select id="selectBoardList" resultType="devsepark.board.model.BoardTip"
+		parameterType="devsepark.board.common.SearchVo">
 		SELECT id, title, writer, date_format(date,'%Y-%m-%d') date, hit
-		FROM board_tip
-		<include refid="includeBoard"/>
+		FROM
+		board_tip
+		<include refid="includeBoard" />
 		ORDER BY id DESC
 		LIMIT ${rowStart - 1}, 10
 	</select>
-	
-	<select id="selectBoardCount" resultType="Integer" parameterType="devsepark.board.common.SearchVo">
+
+	<select id="selectBoardCount" resultType="Integer"
+		parameterType="devsepark.board.common.SearchVo">
 		SELECT COUNT(*)
 		FROM board_tip
-		<include refid="includeBoard"/>
+		<include refid="includeBoard" />
 	</select>
 
 	<insert id="insertBoard" parameterType="devsepark.board.model.BoardTip">
-		INSERT INTO board_tip(title, writer, content, date, hit, isdeleted)
-		VALUES (#{title}, #{writer}, #{content}, NOW(), 0, 0 )
+		INSERT INTO
+		board_tip(title, writer, content, date, hit, isdeleted)
+		VALUES
+		(#{title}, #{writer}, #{content}, NOW(), 0, 0 )
 	</insert>
 
 	<update id="updateBoard" parameterType="devsepark.board.model.BoardTip">
 		UPDATE board_tip
-		SET title=#{title}
+		SET
+		title=#{title}
 		, writer=#{writer}
 		, content=#{content}
 		WHERE id=#{id}
-		AND isdeleted=0
+		AND
+		isdeleted=0
 	</update>
 
 	<update id="updateBoardHit" parameterType="String">
 		UPDATE board_tip
-		SET hit = hit +1
+		SET
+		hit = hit +1
 		WHERE id =#{id}
 	</update>
 
 	<select id="selectBoardOne" parameterType="String"
 		resultType="devsepark.board.model.BoardTip">
-		SELECT id, title, writer, content, DATE_FORMAT(date,'%Y-%m-%d') date
+		SELECT id, title, writer, content,
+		DATE_FORMAT(date,'%Y-%m-%d') date
 		FROM board_tip
 		WHERE id=#{id}
-		AND isdeleted=0
+		AND
+		isdeleted=0
 	</select>
 
 	<delete id="deleteBoardOne" parameterType="String">
 		UPDATE board_tip
-		SET isdeleted=1
+		SET
+		isdeleted=1
 		WHERE id=#{id}
 	</delete>
+
+	<insert id="insertBoardReply" parameterType="devsepark.board.common.ReplyVo">
+		<selectKey resultType="String" keyProperty="reno" order="BEFORE">
+			SELECT IFNULL(MAX(RENO),0)+1 FROM TBL_BOARDREPLY
+		</selectKey>
+
+		INSERT INTO TBL_BOARDREPLY(BRDNO, RENO, REWRITER, REDELETEFLAG,
+		REMEMO, REDATE)
+		VALUES (#{brdno}, #{reno}, #{rewriter}, 'N', #{rememo}, NOW())
+	</insert>
+
+	<update id="updateBoardReply" parameterType="devsepark.board.common.ReplyVo">
+		UPDATE TBL_BOARDREPLY
+		SET REMEMO=#{rememo}
+		WHERE RENO=#{reno}
+	</update>
 
 </mapper>
 

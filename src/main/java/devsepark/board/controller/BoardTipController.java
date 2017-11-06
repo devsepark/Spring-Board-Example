@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import devsepark.board.common.ReplyVo;
 import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardTip;
 import devsepark.board.service.BoardTipService;
@@ -49,6 +50,15 @@ public class BoardTipController {
     	
         return "redirect:/board/tip";
     }
+    
+    @RequestMapping(value = "/article/{id}/reply", method = RequestMethod.POST)
+    public String boardReplySave(ReplyVo replyVo) {
+        
+    	boardTipService.insertBoardReply(replyVo);
+
+        return "redirect:/board/tip/article/" + replyVo.getBoardid();
+    }
+
     
     //글 수정 페이지
     @RequestMapping(value = "/article/{id}/form", method = RequestMethod.GET)

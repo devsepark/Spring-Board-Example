@@ -13,7 +13,6 @@ Spring board example. (practice project)
 4. http://localhost
 
 - 추후 기타 디바이스에서 접근시 /json을 앞에 붙여 json 반환할 수 있도록 할 예정.
-- 로그인 로그아웃 처리를 OAuth를 이용하도록 수정할 예정.
 
 ##Interface Architecture
 ------

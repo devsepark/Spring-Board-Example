@@ -22,6 +22,7 @@ public class SearchVo extends PageVo{
 	}
 
 	public String[] getSearchTypeArr() {
-		return searchType.split(",");
+		this.searchTypeArr = searchType.split(",");
+		return searchTypeArr;
 	}
 }

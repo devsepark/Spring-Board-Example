@@ -42,18 +42,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<c:if test="${pageVo.totalPage>1}">
-		<div class="paging">
-			<c:forEach var="i" begin="${pageVo.pageStart}"
-				end="${pageVo.pageEnd}" step="1">
-				<c:url var="pageLink" value="/board/tip/">
-					<c:param name="page" value="${i}" />
-				</c:url>
-				<a href="${pageLink}"><c:out value="${i}" /></a>
-			</c:forEach>
-		</div>
-	</c:if>
+
 	<form id="form1" name="form1" method="get" action="/board/tip/">
+	<jsp:include page="/WEB-INF/jsp/common/paging.jsp" />
 <div>
     <input type="checkbox" name="searchType" value="title" <c:if test="${fn:indexOf(searchVo.searchType, 'title')!=-1}">checked="checked"</c:if>/>
     <label class="chkselect" for="searchType1">제목</label>
