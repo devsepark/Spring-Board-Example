@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -52,5 +53,15 @@
 			</c:forEach>
 		</div>
 	</c:if>
+	<form id="form1" name="form1" method="get" action="/board/tip/">
+<div>
+    <input type="checkbox" name="searchType" value="title" <c:if test="${fn:indexOf(searchVo.searchType, 'title')!=-1}">checked="checked"</c:if>/>
+    <label class="chkselect" for="searchType1">제목</label>
+    <input type="checkbox" name="searchType" value="content" <c:if test="${fn:indexOf(searchVo.searchType, 'content')!=-1}">checked="checked"</c:if>/>
+    <label class="chkselect" for="searchType2">내용</label>
+    <input type="text" name="searchKeyword" style="width:150px;" maxlength="50" value='<c:out value="${searchVo.searchKeyword}"/>' onkeydown="if(event.keyCode == 13) { fn_formSubmit();}">
+    <input name="btn_search" value="검색" class="btn_sch" type="button" onclick="fn_formSubmit()" />
+</div>
+</form>
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import devsepark.board.common.PageVo;
+import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardTip;
 
 @Service
@@ -14,7 +15,7 @@ public class BoardTipService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<?> selectBoardList(PageVo param) {
+	public List<?> selectBoardList(SearchVo param) {
 		return sqlSession.selectList("selectBoardList", param);
 	}
 
@@ -38,7 +39,7 @@ public class BoardTipService {
 		sqlSession.update("updateBoardHit", param);
 	}
 	
-	public Integer selectBoardCount() {
-		return sqlSession.selectOne("selectBoardCount");
+	public Integer selectBoardCount(SearchVo param) {
+		return sqlSession.selectOne("selectBoardCount", param);
 	}
 }

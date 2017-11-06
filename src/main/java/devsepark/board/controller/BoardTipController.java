@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import devsepark.board.common.PageVo;
+import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardTip;
 import devsepark.board.service.BoardTipService;
 
@@ -23,14 +23,14 @@ public class BoardTipController {
 	
 	//리스트 페이지
 	@RequestMapping(value = "", method = RequestMethod.GET )
-	public String boardTipList(PageVo pageVo, ModelMap modelMap) {
+	public String boardTipList(SearchVo searchVo, ModelMap modelMap) {
 		
-		pageVo.pageCalculate( boardTipService.selectBoardCount()); 
+		searchVo.pageCalculate(boardTipService.selectBoardCount(searchVo)); 
 
-		List<?> list = boardTipService.selectBoardList(pageVo);
+		List<?> list = boardTipService.selectBoardList(searchVo);
 		
 		modelMap.addAttribute("list", list);
-		modelMap.addAttribute("pageVo", pageVo);
+		modelMap.addAttribute("pageVo", searchVo);
 		
 		return  "/board_tip/board_list";
 	}
