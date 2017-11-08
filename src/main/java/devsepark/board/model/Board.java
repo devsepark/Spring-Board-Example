@@ -1,31 +1,26 @@
 package devsepark.board.model;
 
-public class BoardTip {
-	private String id;
+public class Board {
+	private String groupid;
+	private String articleid;
 	private String title;
 	private String writer;
 	private String content;
 	private String date;
 	private String hit;
 	private String isdeleted;
-
-	public String getHit() {
-		return hit;
+	
+	public String getGroupid() {
+		return groupid;
 	}
-	public void setHit(String hit) {
-		this.hit = hit;
+	public void setGroupid(String groupid) {
+		this.groupid = groupid;
 	}
-	public String getIsdeleted() {
-		return isdeleted;
+	public String getArticleid() {
+		return articleid;
 	}
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
+	public void setArticleid(String articleid) {
+		this.articleid = articleid;
 	}
 	public String getTitle() {
 		return title;
@@ -40,7 +35,7 @@ public class BoardTip {
 		this.writer = writer;
 	}
 	public String getContent() {
-		return content.replaceAll("(?i)<script", "&lt;script");
+		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
@@ -51,6 +46,16 @@ public class BoardTip {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
-
+	public String getHit() {
+		return hit;
+	}
+	public void setHit(String hit) {
+		this.hit = hit;
+	}
+	public String getIsdeleted() {
+		return isdeleted;
+	}
+	public void setIsdeleted(String isdeleted) {
+		this.isdeleted = isdeleted;
+	}
 }

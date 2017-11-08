@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="/css/bootstrap.css">
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 
 <title>IT QnA - 로그인</title>

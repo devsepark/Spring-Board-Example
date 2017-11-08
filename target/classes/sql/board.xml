@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="board_tip">
+<mapper namespace="board">
 	<sql id="includeBoard">
 		WHERE isdeleted=0
 		<if test="searchKeyword!=null and searchKeyword!=''">
@@ -14,66 +14,66 @@
 		</if>
 	</sql>
 
-	<select id="selectBoardList" resultType="devsepark.board.model.BoardTip"
+	<select id="selectBoardList" resultType="devsepark.board.model.Board"
 		parameterType="devsepark.board.common.SearchVo">
-		SELECT id, title, writer, date_format(date,'%Y-%m-%d') date, hit
+		SELECT articleid, title, writer, date_format(date,'%Y-%m-%d') date, hit
 		FROM
-		board_tip
+		board
 		<include refid="includeBoard" />
-		ORDER BY id DESC
+		ORDER BY articleid DESC
 		LIMIT ${rowStart - 1}, 10
 	</select>
 
 	<select id="selectBoardCount" resultType="Integer"
 		parameterType="devsepark.board.common.SearchVo">
 		SELECT COUNT(*)
-		FROM board_tip
+		FROM board
 		<include refid="includeBoard" />
 	</select>
 
-	<insert id="insertBoard" parameterType="devsepark.board.model.BoardTip">
+	<insert id="insertBoard" parameterType="devsepark.board.model.Board">
 		INSERT INTO
-		board_tip(title, writer, content, date, hit, isdeleted)
+		board(title, writer, content, date, hit, isdeleted)
 		VALUES
 		(#{title}, #{writer}, #{content}, NOW(), 0, 0 )
 	</insert>
 
-	<update id="updateBoard" parameterType="devsepark.board.model.BoardTip">
-		UPDATE board_tip
+	<update id="updateBoard" parameterType="devsepark.board.model.Board">
+		UPDATE board
 		SET
 		title=#{title}
 		, writer=#{writer}
 		, content=#{content}
-		WHERE id=#{id}
+		WHERE articleid=#{articleid}
 		AND
 		isdeleted=0
 	</update>
 
 	<update id="updateBoardHit" parameterType="String">
-		UPDATE board_tip
+		UPDATE board
 		SET
 		hit = hit +1
-		WHERE id =#{id}
+		WHERE articleid =#{articleid}
 	</update>
 
 	<select id="selectBoardOne" parameterType="String"
-		resultType="devsepark.board.model.BoardTip">
-		SELECT id, title, writer, content,
+		resultType="devsepark.board.model.Board">
+		SELECT articleid, title, writer, content,
 		DATE_FORMAT(date,'%Y-%m-%d') date
-		FROM board_tip
-		WHERE id=#{id}
+		FROM board
+		WHERE articleid=#{articleid}
 		AND
 		isdeleted=0
 	</select>
 
 	<delete id="deleteBoardOne" parameterType="String">
-		UPDATE board_tip
+		UPDATE board
 		SET
 		isdeleted=1
 		WHERE id=#{id}
 	</delete>
 
-	<insert id="insertBoardReply" parameterType="devsepark.board.common.ReplyVo">
+	<insert id="insertBoardReply" parameterType="devsepark.board.common.CommentVo">
 		<selectKey resultType="String" keyProperty="reno" order="BEFORE">
 			SELECT IFNULL(MAX(RENO),0)+1 FROM TBL_BOARDREPLY
 		</selectKey>
@@ -83,11 +83,16 @@
 		VALUES (#{brdno}, #{reno}, #{rewriter}, 'N', #{rememo}, NOW())
 	</insert>
 
-	<update id="updateBoardReply" parameterType="devsepark.board.common.ReplyVo">
+	<update id="updateBoardReply" parameterType="devsepark.board.common.CommentVo">
 		UPDATE TBL_BOARDREPLY
 		SET REMEMO=#{rememo}
 		WHERE RENO=#{reno}
 	</update>
-
+	
+	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">
+        SELECT id, name, isavailable, iscommentable, readonly
+          FROM board_group
+         WHERE isdeleted=0 AND id=#{id} 
+    </select> 
 </mapper>
 

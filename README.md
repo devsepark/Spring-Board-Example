@@ -16,18 +16,18 @@ Spring board example. (practice project)
 
 ##Interface Architecture
 ------
-|Method		|Resource						|Remark				|
-|:----------|:-----------------------------:|:------------------|
-|GET 		| /, /index						|main index page	|
-|GET		|/board/tip/					|board tip list		|
-|GET		|/board/tip/form				|board write form	|
-|POST		|/board/tip/					|write article		|
-|GET		|/board/tip/article/{id}/form	|article update form|
-|PUT		|/board/tip/article/{id}		|update article 	|
-|GET		|/board/tip/article/{id}		|read article page	|
-|DELETE		|/board/tip/article/{id}		|delete	article 	|
-|GET		|/user/regist/form				|user regist form	|
-|POST		|/user/regist					|regist user		|
-|GET		|/user/login					|user login form	|
-|POST		|/user/login					|login user			|
-|POST		|/user/logout					|logout user		|
+|Method		|Resource										|Remark				|
+|:----------|:---------------------------------------------:|:------------------|
+|GET 		| /, /index										|main index page	|
+|GET		|/board/{boardid}/								|board {id} list	|
+|GET		|/board/{boardid}/form							|board write form	|
+|POST		|/board/{boardid}/								|write article		|
+|GET		|/board/{boardid}/article/{articleid}/form		|article update form|
+|PUT		|/board/{boardid}/article/{articleid}			|update article 	|
+|GET		|/board/{boardid}/article/{articleid}			|read article page	|
+|DELETE		|/board/{boardid}/article/{articleid}			|delete	article 	|
+|GET		|/user/regist/form								|user regist form	|
+|POST		|/user/regist									|regist user		|
+|GET		|/user/login									|user login form	|
+|POST		|/user/login									|login user			|
+|POST		|/user/logout									|logout user		|

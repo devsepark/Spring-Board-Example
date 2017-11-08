@@ -6,12 +6,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import devsepark.board.common.ReplyVo;
+import devsepark.board.common.CommentVo;
 import devsepark.board.common.SearchVo;
-import devsepark.board.model.BoardTip;
+import devsepark.board.model.Board;
 
 @Service
-public class BoardTipService {
+public class BoardService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
@@ -19,15 +19,15 @@ public class BoardTipService {
 		return sqlSession.selectList("selectBoardList", param);
 	}
 
-	public void insertBoard(BoardTip param) {
+	public void insertBoard(Board param) {
 		sqlSession.insert("insertBoard", param);
 	}
 
-	public void updateBoard(BoardTip param) {
+	public void updateBoard(Board param) {
 		sqlSession.insert("updateBoard", param);
 	}
 
-	public BoardTip selectBoardOne(String param) {
+	public Board selectBoardOne(String param) {
 		return sqlSession.selectOne("selectBoardOne", param);
 	}
 
@@ -43,7 +43,7 @@ public class BoardTipService {
 		return sqlSession.selectOne("selectBoardCount", param);
 	}
 
-	public void insertBoardReply(ReplyVo param) {
+	public void insertBoardReply(CommentVo param) {
 		if (param.getReplyid()==null || "".equals(param.getReplyid())) {
 			sqlSession.insert("insertBoardReply", param);
 		} else {

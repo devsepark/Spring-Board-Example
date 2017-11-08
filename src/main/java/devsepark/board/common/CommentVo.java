@@ -1,6 +1,6 @@
 package devsepark.board.common;
 
-public class ReplyVo {
+public class CommentVo {
 	private String boardid;
 	private String replyid;
 	private String writer;
