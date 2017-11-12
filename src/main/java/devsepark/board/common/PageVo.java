@@ -1,33 +1,37 @@
 package devsepark.board.common;
 
+//페이징 처리를 위한 모델 클래스
 public class PageVo {
 	private Integer displayRowCount = 10;           // 출력할 데이터 개수
-    private Integer rowStart;                       // 시작행번호
-    private Integer rowEnd;                         // 종료행 번호
-    private Integer totalPage;                        // 전체 페이수
-    private Integer totalRow = 0;                     // 전체 데이터 수
+    private Integer startRow;                       // 시작행번호
+    private Integer endRow;                         // 종료행 번호
+    private Integer totalPage;                      // 전체 페이지 수
+    private Integer totalRow = 0;                   // 전체 데이터 수
     private Integer page;                           // 현재 페이지
-    private Integer pageStart;                      // 시작페이지
-    private Integer pageEnd;                        // 종료페이지
+    private Integer startPage;                      // 보이는 첫번째 페이지 ex:1~10,11~20
+    private Integer endPage;                        // 보이는 마지막 페이지 ex:1~10,11~20
 
-    //전체 데이터 개수(total)를 이용하여 페이지수 계산. 
-    public void pageCalculate(Integer total) {
+    //게시글 수(totalCount)를 이용한 페이징 속성 설정.
+    public void pageCalculate(Integer totalCount) {
         getPage();
-        totalRow  = total;
-        totalPage    = (int) ( total / displayRowCount );
+        totalRow = totalCount;
         
-        if ( total % displayRowCount > 0 ) {
-            totalPage++;
-        }
-
-        pageStart = (page - (page - 1) % 10) ;
-        pageEnd = pageStart + 9;
-        if (pageEnd > totalPage) {
-            pageEnd = totalPage;
+        //게시글 수/페이지 표시 게시글
+        totalPage = (int)(totalCount / displayRowCount);
+        
+        //(게시글 수/페이지 표시 게시글)의 나머지가 0보다 클 경우 페이지수+1
+        totalPage += (totalCount % displayRowCount > 0)?1:0;
+        
+        //시작 페이지, 종료 페이지 설정
+        startPage = (page - (page - 1) % 10);
+        endPage = startPage + 9;
+        if (endPage > totalPage) {
+            endPage = totalPage;
         }
         
-        rowStart = ((page - 1) * displayRowCount) + 1 ;
-        rowEnd   = rowStart + displayRowCount - 1;
+        //시작행, 종료행 설정
+        startRow = ((page - 1) * displayRowCount) + 1;
+        endRow   = startRow + displayRowCount - 1;
     } 
     
     //현재 페이지 번호
@@ -35,7 +39,6 @@ public class PageVo {
         if (page == null || page == 0) {
             page = 1;
         }
-        
         return page;
     }
 
@@ -44,19 +47,19 @@ public class PageVo {
     }
 
     public Integer getRowStart() {
-        return rowStart;
+        return startRow;
     }
 
     public void setRowStart(Integer rowStart) {
-        this.rowStart = rowStart;
+        this.startRow = rowStart;
     }
 
     public Integer getRowEnd() {
-        return rowEnd;
+        return endRow;
     }
 
     public void setRowEnd(Integer rowEnd) {
-        this.rowEnd = rowEnd;
+        this.endRow = rowEnd;
     }
 
     public Integer getDisplayRowCount() {
@@ -83,19 +86,35 @@ public class PageVo {
         this.totalRow = totalRow;
     }
 
-    public Integer getPageStart() {
-        return pageStart;
-    }
+	public Integer getStartRow() {
+		return startRow;
+	}
 
-    public void setPageStart(Integer pageStart) {
-        this.pageStart = pageStart;
-    }
+	public void setStartRow(Integer startRow) {
+		this.startRow = startRow;
+	}
 
-    public Integer getPageEnd() {
-        return pageEnd;
-    }
+	public Integer getEndRow() {
+		return endRow;
+	}
 
-    public void setPageEnd(Integer pageEnd) {
-        this.pageEnd = pageEnd;
-    }
+	public void setEndRow(Integer endRow) {
+		this.endRow = endRow;
+	}
+
+	public Integer getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(Integer startPage) {
+		this.startPage = startPage;
+	}
+
+	public Integer getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(Integer endPage) {
+		this.endPage = endPage;
+	}
 }

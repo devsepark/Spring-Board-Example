@@ -1,14 +1,15 @@
 package devsepark.board.model;
 
-public class Board {
-	private String groupid;
-	private String articleid;
-	private String title;
-	private String writer;
-	private String content;
-	private String date;
-	private String hit;
-	private String isdeleted;
+//게시판 모델 클래스
+public class BoardArticle {
+	private String groupid;		//그룹id
+	private String articleid;	//게시글id
+	private String title;		//게시글제목
+	private String writer;		//게시글작성자
+	private String content;		//게시글내용
+	private String date;		//게시글작성일자
+	private String hit;			//게시글조회수
+	private String isdeleted;	//게시글삭제여부
 	
 	public String getGroupid() {
 		return groupid;
@@ -22,8 +23,9 @@ public class Board {
 	public void setArticleid(String articleid) {
 		this.articleid = articleid;
 	}
+	//제목 스크립트 실행 방지
 	public String getTitle() {
-		return title;
+		return title.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setTitle(String title) {
 		this.title = title;
@@ -34,8 +36,9 @@ public class Board {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+	//글 스크립트 실행 방지
 	public String getContent() {
-		return content;
+		return content.replaceAll("(?i)<script", "&lt;script");
 	}
 	public void setContent(String content) {
 		this.content = content;

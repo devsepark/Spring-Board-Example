@@ -4,10 +4,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Tip&강좌 게시판</title>
+<title><c:out value="${boardGroup.name}"/></title>
+<script>
+	function fn_write_formSubmit(){
+		var writeForm = document.write_form;
+		
+		if(writeForm.writer.value=="") {
+			alert("작성자를 입력해주세요.");
+			writeForm.writer.focus();
+			return;
+		}
+		if(writeForm.title.value=="") {
+			alert("글 제목을 입력해주세요.");
+			writeForm.title.focus();
+			return;
+		}
+		if(writeForm.content.value=="") {
+			alert("글 내용을 입력해주세요.");
+			writeForm.content.focus();
+			return;
+		}
+		document.write_form.submit();
+	}
+</script>
 </head>
 <body>
-	<form name="form1" action="/board/tip" method="post">
+	<!-- 글쓰기 폼 -->
+	<form name="write_form" action="/board/tip" method="post">
 		<table border="1" style="width:600px">
 			<caption>게시판</caption>
 			<colgroup>
@@ -29,8 +52,7 @@
 				</tr>
 			</tbody>
 		</table>    
-		<a href="#" onclick="form1.submit()">저장</a>
-		<input type="submit" value="저장">
+		<a href="#" onclick="fn_write_formSubmit()">저장</a>
 	</form>	
 </body>
 </html>

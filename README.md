@@ -31,3 +31,21 @@ Spring board example. (practice project)
 |GET		|/user/login									|user login form	|
 |POST		|/user/login									|login user			|
 |POST		|/user/logout									|logout user		|
+
+##Test
+- create procedure.
+delimiter //
+create procedure insert_articles(num int)
+begin
+	declare i int;
+	set i = 0;
+	while i <= num do
+		insert into board_article(groupid, title, writer, content, date, hit, isdeleted)
+		values ('tip', concat('제목',i), concat('작성자',i), concat('내용',i), now(), 0, 0);
+		set i = i + 1;
+	end while;
+end//
+delimiter ;
+
+- use
+call insert_articles(10);

@@ -8,37 +8,39 @@ import org.springframework.stereotype.Service;
 
 import devsepark.board.common.CommentVo;
 import devsepark.board.common.SearchVo;
-import devsepark.board.model.Board;
+import devsepark.board.model.BoardArticle;
 
+//게시판 서비스
 @Service
-public class BoardService {
+public class BoardArticleService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
+	//게시글 목록.
 	public List<?> selectBoardList(SearchVo param) {
 		return sqlSession.selectList("selectBoardList", param);
 	}
-
-	public void insertBoard(Board param) {
+	//게시글 생성.
+	public void insertBoard(BoardArticle param) {
 		sqlSession.insert("insertBoard", param);
 	}
-
-	public void updateBoard(Board param) {
+	//게시글 수정
+	public void updateBoard(BoardArticle param) {
 		sqlSession.insert("updateBoard", param);
 	}
-
-	public Board selectBoardOne(String param) {
+	//게시글 읽기
+	public BoardArticle selectBoardOne(String param) {
 		return sqlSession.selectOne("selectBoardOne", param);
 	}
-
+	//게시글 삭제
 	public void deleteBoardOne(String param) {
 		sqlSession.delete("deleteBoardOne", param);
 	}
-
+	//조회수 1증가
 	public void updateBoardHit(String param) {
 		sqlSession.update("updateBoardHit", param);
 	}
-
+	//전체 게시글 개수
 	public Integer selectBoardCount(SearchVo param) {
 		return sqlSession.selectOne("selectBoardCount", param);
 	}
