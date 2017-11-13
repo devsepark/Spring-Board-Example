@@ -15,7 +15,7 @@ function fn_search_formSubmit(){
 </script>
 </head>
 <body>
-	<h1><c:out value="${boardGroup.name}"/></h1>
+	<h1><a href="<c:out value="/board/${boardGroup.id}"/>"><c:out value="${boardGroup.name}"/></a></h1>
 	<!-- 게시판 그룹 글쓰기 권한 확인 -->
 	<c:if test="${boardGroup.readonly==0}">
 		<a href="<c:out value="/board/${boardGroup.id}/form"/>">글쓰기</a>
@@ -53,9 +53,18 @@ function fn_search_formSubmit(){
 			</c:forEach>
 		</tbody>
 	</table>
-	<!-- 검색 폼 -->
-	<form id="search_form" name="search_form" method="get" action="/board/<c:out value="${boardGroup.id}"/>">
+	<!-- TODO 검색 인풋박스에 텍스트둔채로 페이징버튼 누를 시, 검색되서 이동함.고로 페이징버튼과 검색은 별도로. -->
+	<!-- TODO 검색 시, 내용이 없으면 검색된 내용이 없다고 표시. -->
+	<!-- TODO 검색 기능 확장 (드롭박스로)(제목,내용,제목+내용,작성자,댓글) -->
+	
+	<!-- 페이징 폼 -->
+	<form id="paging_form" name="paging_form" method="get" action="<c:out value="/board/${boardGroup.id}"/>">
+		<!-- 페이징 처리 -->
 		<jsp:include page="/WEB-INF/jsp/common/paging.jsp" />
+	</form>
+	
+	<!-- 검색 폼 -->
+	<form id="search_form" name="search_form" method="get">
 		<div>
 			<!-- 제목 체크박스 -->
 		    <input type="checkbox" name="searchType" value="title" <c:if test="${fn:indexOf(searchVo.searchType, 'title')!=-1}">checked="checked"</c:if>/>
@@ -69,5 +78,6 @@ function fn_search_formSubmit(){
 		    <input name="btn_search" value="검색" type="button" onclick="fn_search_formSubmit()" />
 		</div>
 	</form>
+	
 </body>
 </html>

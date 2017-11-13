@@ -14,10 +14,10 @@ Spring board example. (practice project)
 
 - 추후 기타 디바이스에서 접근시 /json을 앞에 붙여 json 반환할 수 있도록 할 예정.
 
-##Interface Architecture
+## Interface Architecture
 ------
 |Method		|Resource										|Remark				|
-|:----------|:---------------------------------------------:|:------------------|
+|:----------|:----------------------------------------------|:------------------|
 |GET 		| /, /index										|main index page	|
 |GET		|/board/{boardid}/								|board {id} list	|
 |GET		|/board/{boardid}/form							|board write form	|
@@ -32,8 +32,9 @@ Spring board example. (practice project)
 |POST		|/user/login									|login user			|
 |POST		|/user/logout									|logout user		|
 
-##Test
-- create procedure.
+## Create Test data
+------
+-create procedure.
 delimiter //
 create procedure insert_articles(num int)
 begin
@@ -49,3 +50,29 @@ delimiter ;
 
 - use
 call insert_articles(10);
+
+## A List Of Functions
+------
+|Function	        |Completed |Remark				              |
+|:------------------|:--------:|:---------------------------------|
+|메인 페이지	        |          |메뉴 및 메인 페이지	                  |
+|게시글 리스트	        |O         |게시글 리스트 출력		                  |
+|게시글 페이징	        |O         |게시글 페이징 처리		                  |
+|게시판 그룹	        |O         |각 게시판 그룹화		                  |
+|게시글 등록	        |O         |게시글 등록			                  |
+|게시글 읽기	        |O         |게시글 읽기			                  |
+|게시글 수정	        |O         |게시글 수정			                  |
+|게시글 삭제	        |O         |게시글 삭제			                  |
+|게시글 조회수   	        |O         |게시글 조회수 증가 및 출력	              |
+|게시판 검색	        |          |게시글 작성자, 제목, 내용, 댓글 검색	      |
+|파일 등록		        |          |				                  |
+|파일 수정		        |	       |				                  |
+|게시글 댓글 등록	        |          |				                  |
+|게시글 댓글 출력	        |          |				                  |
+|게시글 댓글 수정	        |	       |				                  |
+|게시글 댓글 삭제	        |          |				                  |
+|로그인		        |          |				                  |
+|로그 아웃		        |          |				                  |
+|회원 가입		        |          |				                  |
+|게시판 리스트	        |O         |				                  |
+|게시글 스크립트 방지    	    |O         |게시글 스크립트 삽입 방지   	              |

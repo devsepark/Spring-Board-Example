@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- 전체 페이지수가 1이상일 경우 -->
 <c:if test="${searchVo.totalPage>1}">
@@ -38,13 +39,31 @@
 	</div>
 	<br/>
 		
-	<input type="hidden" name="page" id="page" value="" />
+	<input type="hidden" name="searchType" value=
+		<c:choose>
+			<c:when test="${fn:indexOf(searchVo.searchType, 'title')!=-1}">
+				"title"
+			</c:when>
+			<c:otherwise>""</c:otherwise>
+		</c:choose>
+	/>
+	<input type="hidden" name="searchType" value=
+		<c:choose>
+			<c:when test="${fn:indexOf(searchVo.searchType, 'content')!=-1}">
+				"content"
+			</c:when>
+			<c:otherwise>""</c:otherwise>
+		</c:choose>
+	/>
+	<input type="hidden" name="searchKeyword" value="<c:out value="${searchVo.searchKeyword}"/>"/>
 		
+	<input type="hidden" name="page" id="page" value="" />
+
 	<script type="text/javascript">
 	//검색 폼의 현재 페이지를 설정하고 등록
 	function fn_submitForm(page){ 
-		document.search_form.page.value=page;
-		document.search_form.submit();
+		document.paging_form.page.value=page;
+		document.paging_form.submit();
 	}
 	</script>
 </c:if>

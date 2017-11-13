@@ -6,9 +6,9 @@
 	<!-- 게시판, 삭제여부, 검색 조건 -->
 	<sql id="includeBoard">
 		WHERE groupid=#{groupid} AND isdeleted=0
-		<if test="searchKeyword!=null and searchKeyword!=''">
+		<if test="searchKeyword!=null and searchKeyword!='' and searchTypeArray!=null and searchTypeArray!=''">
 			AND
-			<foreach item="item" index="index" open="(" close=")" separator="or" collection="searchTypeArr">
+			<foreach item="item" index="index" open="(" close=")" separator="or" collection="searchTypeArray">
 				${item} LIKE CONCAT('%',
 				#{searchKeyword},'%' )
 			</foreach>

@@ -15,7 +15,7 @@ CREATE TABLE `board_article` (						#게시판 테이블
 );
 	
 CREATE TABLE `board_comment` (						#게시판 댓글 테이블
-	`boardid` INT(11) NOT NULL,						
+	`articleid` INT(11) NOT NULL,						
 	`commentid` INT(11) NOT NULL,					
 	`writer` VARCHAR(20) NOT NULL,					
 	`content` VARCHAR(500) NULL DEFAULT NULL,		
@@ -25,11 +25,11 @@ CREATE TABLE `board_comment` (						#게시판 댓글 테이블
 );
 	
 CREATE TABLE `board_file` (							
-	`fileid` INT(20) NOT NULL AUTO_INCREMENT,
-	`boardid` INT(20) NULL DEFAULT NULL,
-	`filename` VARCHAR(150) NULL DEFAULT NULL,
-	`realname` VARCHAR(50) NULL DEFAULT NULL,
-	`filesize` INT(11) NULL DEFAULT NULL,
+	`fileid` INT(20) NOT NULL AUTO_INCREMENT,		#파일 id
+	`articleid` INT(20) NULL DEFAULT NULL,			#게시글 id
+	`filename` VARCHAR(150) NULL DEFAULT NULL,		#파일명 (첨부 시, 이름)
+	`convertname` VARCHAR(50) NULL DEFAULT NULL,	#파일명 (서버에 저장되는 이름)
+	`filesize` INT(11) NULL DEFAULT NULL,			#파일사이즈
 	PRIMARY KEY (`fileid`)
 );
 
