@@ -28,7 +28,7 @@ CREATE TABLE `board_file` (
 	`fileid` INT(20) NOT NULL AUTO_INCREMENT,		#파일 id
 	`articleid` INT(20) NULL DEFAULT NULL,			#게시글 id
 	`filename` VARCHAR(150) NULL DEFAULT NULL,		#파일명 (첨부 시, 이름)
-	`convertname` VARCHAR(50) NULL DEFAULT NULL,	#파일명 (서버에 저장되는 이름)
+	`convertname` VARCHAR(80) NULL DEFAULT NULL,	#파일명 (서버에 저장되는 이름)
 	`filesize` INT(11) NULL DEFAULT NULL,			#파일사이즈
 	PRIMARY KEY (`fileid`)
 );
