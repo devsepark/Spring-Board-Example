@@ -38,7 +38,7 @@
 		</c:if>
 	</div>
 	<br/>
-		
+	<!-- 검색 설정 세팅 -->
 	<input type="hidden" name="searchType" value=
 		<c:choose>
 			<c:when test="${fn:indexOf(searchVo.searchType, 'title')!=-1}">

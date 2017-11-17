@@ -39,7 +39,7 @@ public class BoardArticleController {
 		//페이징 처리
 		searchVo.pageCalculate(boardArticleService.selectBoardCount(searchVo)); 
 		//보여지는 페이지만큼 게시글 셀렉트
-		List<?> articleList = boardArticleService.selectBoardList(searchVo);
+		List<BoardArticle> articleList = boardArticleService.selectBoardList(searchVo);
 		//JSP로 전달
 		modelMap.addAttribute("articleList", articleList);
 		modelMap.addAttribute("searchVo", searchVo);
@@ -74,19 +74,10 @@ public class BoardArticleController {
         return "redirect:/board/"+boardid;
     }
     
-    //댓글 수정중
-    @RequestMapping(value = "/article/{articleid}/comment", method = RequestMethod.POST)
-    public String boardReplySave(CommentVo commentVo) {
-        
-    	boardArticleService.insertBoardReply(commentVo);
-
-        return "redirect:/board/tip/article/" + commentVo.getBoardid();
-    }
-
-    
     //글 수정 페이지
     @RequestMapping(value = "/{boardid}/article/{articleid}/form", method = RequestMethod.GET)
-   	public String boardUpdateForm(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid, ModelMap modelMap) {
+   	public String boardUpdateForm(@PathVariable("boardid") String boardid
+   			, @PathVariable("articleid") String articleid, ModelMap modelMap) {
     	
     	BoardArticle article = boardArticleService.selectBoardOne(articleid);
         if(article == null) {
@@ -99,7 +90,8 @@ public class BoardArticleController {
     
     //글 수정 저장
     @RequestMapping(value = "/{boardid}/article/{articleid}", method = RequestMethod.PUT)
-   	public String boardUpdateSave(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid, @ModelAttribute BoardArticle article) {
+   	public String boardUpdateSave(@PathVariable("boardid") String boardid
+   			, @PathVariable("articleid") String articleid, @ModelAttribute BoardArticle article) {
     	
     	boardArticleService.updateBoard(article);
     	
@@ -108,7 +100,8 @@ public class BoardArticleController {
 
     //글 읽기 페이지, 게시판과 게시글 ID를 Path에서 받아 게시글을 조회.
     @RequestMapping(value = "/{boardid}/article/{articleid}", method = RequestMethod.GET)
-   	public String boardRead(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid, ModelMap modelMap) {
+   	public String boardRead(@PathVariable("boardid") String boardid
+   			, @PathVariable("articleid") String articleid, ModelMap modelMap) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
 		if(boardGroup == null) {
@@ -119,9 +112,12 @@ public class BoardArticleController {
     	if(article == null) {
     		//TODO return 404error page
     	}
+    	List<CommentVo> commentList = boardArticleService.selectBoardCommentList(articleid);
+    	
     	
     	modelMap.addAttribute("boardArticle", article);
     	modelMap.addAttribute("boardGroup", boardGroup);
+    	modelMap.addAttribute("commentList", commentList);
     	//조회수 증가
     	boardArticleService.updateBoardHit(articleid);
         return "/board/board_read";
@@ -134,5 +130,33 @@ public class BoardArticleController {
     	boardArticleService.deleteBoardOne(articleid);
         
         return "redirect:/board/tip";
+    }
+
+    //댓글 저장
+    @RequestMapping(value = "/{boardid}/article/{articleid}/comment", method = RequestMethod.POST)
+    public String boardCommentSave(@PathVariable("boardid") String boardid
+    		, @PathVariable("articleid") String articleid, CommentVo commentVo) {
+        
+    	boardArticleService.insertBoardComment(commentVo);
+    	
+        return "redirect:/board/"+boardid+"/article/"+articleid;
+    }
+    //댓글 수정
+    @RequestMapping(value = "/{boardid}/article/{articleid}/comment/{commentid}", method = RequestMethod.PUT)
+    public String boardCommentUpdate(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid
+    		, @PathVariable("commentid") String commentid, CommentVo commentVo) {
+        
+    	boardArticleService.updateBoardComment(commentVo);
+    	
+        return "redirect:/board/"+boardid+"/article/"+articleid;
+    }
+    //댓글 삭제
+    @RequestMapping(value = "/{boardid}/article/{articleid}/comment/{commentid}", method = RequestMethod.DELETE)
+    public String boardCommentDelete(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid
+    		, @PathVariable("commentid") String commentid) {
+    	
+    	boardArticleService.deleteBoardComment(commentid);
+    	
+    	return "redirect:/board/" + boardid + "/article/" + articleid;
     }
 }

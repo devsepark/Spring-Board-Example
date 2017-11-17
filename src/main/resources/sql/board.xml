@@ -83,23 +83,38 @@
 	</delete>
 
 	<!-- 댓글 입력. -->
-	<insert id="insertBoardReply" parameterType="devsepark.board.common.CommentVo">
-		<selectKey resultType="String" keyProperty="reno" order="BEFORE">
-			SELECT IFNULL(MAX(RENO),0)+1 FROM TBL_BOARDREPLY
+	<insert id="insertBoardComment" parameterType="devsepark.board.common.CommentVo">
+		<selectKey resultType="String" keyProperty="commentid" order="BEFORE">
+			SELECT IFNULL(MAX(commentid),0)+1 FROM board_comment
 		</selectKey>
 
-		INSERT INTO TBL_BOARDREPLY(BRDNO, RENO, REWRITER, REDELETEFLAG,
-		REMEMO, REDATE)
-		VALUES (#{brdno}, #{reno}, #{rewriter}, 'N', #{rememo}, NOW())
+		INSERT INTO board_comment(articleid, commentid, writer, isdeleted,
+		content, date)
+		VALUES (#{articleid}, #{commentid}, #{writer}, 0, #{content}, NOW())
 	</insert>
 	
 	<!-- 댓글 수정 -->
-	<update id="updateBoardReply" parameterType="devsepark.board.common.CommentVo">
-		UPDATE TBL_BOARDREPLY
-		SET REMEMO=#{rememo}
-		WHERE RENO=#{reno}
+	<update id="updateBoardComment" parameterType="devsepark.board.common.CommentVo">
+		UPDATE board_comment
+		SET content=#{content}
+		WHERE commentid=#{commentid}
 	</update>
 	
+	<!-- 댓글 리스트 -->
+    <select id="selectBoardCommentList" resultType="devsepark.board.common.CommentVo" parameterType="String">
+        SELECT articleid, commentid, writer, isdeleted, content, date 
+          FROM board_comment
+         WHERE articleid=#{articleid} AND isdeleted=0
+         ORDER BY commentid
+    </select>
+    
+	<!-- 댓글 삭제 -->
+	<update id="deleteBoardComment" parameterType="String"> 
+        UPDATE board_comment
+           SET isdeleted=1
+         WHERE commentid=#{commentid}       
+    </update>
+    
 	<!-- 게시판 그룹 읽어오기 -->
 	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">
         SELECT id, name, isavailable, iscommentable, readonly

@@ -5,28 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><c:out value="${boardGroup.name}"/></title>
-<script>
-	function fn_write_formSubmit(){
-		var writeForm = document.write_form;
-		
-		if(writeForm.writer.value=="") {
-			alert("작성자를 입력해주세요.");
-			writeForm.writer.focus();
-			return;
-		}
-		if(writeForm.title.value=="") {
-			alert("글 제목을 입력해주세요.");
-			writeForm.title.focus();
-			return;
-		}
-		if(writeForm.content.value=="") {
-			alert("글 내용을 입력해주세요.");
-			writeForm.content.focus();
-			return;
-		}
-		document.write_form.submit();
-	}
-</script>
 </head>
 <body>
 	<!-- 글쓰기 폼 -->
@@ -52,7 +30,30 @@
 				</tr>
 			</tbody>
 		</table>    
-		<a href="#" onclick="fn_write_formSubmit()">저장</a>
+		<a href="#" onclick="writeFormSubmit()">저장</a>
 	</form>	
+	
+<script>
+	function writeFormSubmit(){
+		var writeForm = document.write_form;
+		
+		if(writeForm.writer.value=="") {
+			alert("작성자를 입력해주세요.");
+			writeForm.writer.focus();
+			return;
+		}
+		if(writeForm.title.value=="") {
+			alert("글 제목을 입력해주세요.");
+			writeForm.title.focus();
+			return;
+		}
+		if(writeForm.content.value=="") {
+			alert("글 내용을 입력해주세요.");
+			writeForm.content.focus();
+			return;
+		}
+		document.write_form.submit();
+	}
+</script>
 </body>
 </html>

@@ -12,44 +12,27 @@ Spring board example. (practice project)
 3. tomcat setting (path : /, port: 80)
 4. http://localhost
 
-- 추후 기타 디바이스에서 접근시 /json을 앞에 붙여 json 반환할 수 있도록 할 예정.
 
 ## Interface Architecture
 ------
-|Method		|Resource										|Remark				|
-|:----------|:----------------------------------------------|:------------------|
-|GET 		| /, /index										|main index page	|
-|GET		|/board/{boardid}/								|board {id} list	|
-|GET		|/board/{boardid}/form							|board write form	|
-|POST		|/board/{boardid}/								|write article		|
-|GET		|/board/{boardid}/article/{articleid}/form		|article update form|
-|PUT		|/board/{boardid}/article/{articleid}			|update article 	|
-|GET		|/board/{boardid}/article/{articleid}			|read article page	|
-|DELETE		|/board/{boardid}/article/{articleid}			|delete	article 	|
-|GET		|/user/regist/form								|user regist form	|
-|POST		|/user/regist									|regist user		|
-|GET		|/user/login									|user login form	|
-|POST		|/user/login									|login user			|
-|POST		|/user/logout									|logout user		|
-
-## Create Test data
-------
--create procedure.
-delimiter //
-create procedure insert_articles(num int)
-begin
-	declare i int;
-	set i = 0;
-	while i <= num do
-		insert into board_article(groupid, title, writer, content, date, hit, isdeleted)
-		values ('tip', concat('제목',i), concat('작성자',i), concat('내용',i), now(), 0, 0);
-		set i = i + 1;
-	end while;
-end//
-delimiter ;
-
-- use
-call insert_articles(10);
+|Method		|Resource													|Remark				|
+|:----------|:----------------------------------------------------------|:------------------|
+|GET 		| /, /index													|메인 인덱스 페이지 		|
+|GET		|/board/{boardid}/											|게시판 게시글 리스트		|
+|GET		|/board/{boardid}/form										|게시판 글쓰기 폼			|
+|POST		|/board/{boardid}/											|게시판 글쓰기			|
+|GET		|/board/{boardid}/article/{articleid}/form					|게시글 수정 폼			|
+|PUT		|/board/{boardid}/article/{articleid}						|게시글 수정		 	|
+|GET		|/board/{boardid}/article/{articleid}						|게시글 읽기			|
+|DELETE		|/board/{boardid}/article/{articleid}						|게시글 삭제		 	|
+|POST		|/board/{boardid}/article/{articleid}/comment				|댓글 저장				|
+|PUT		|/board/{boardid}/article/{articleid}/comment/{commentid}	|댓글 수정				|
+|DELETE		|/board/{boardid}/article/{articleid}/comment/{commentid}	|댓글 삭제				|
+|GET		|/user/regist												|회원가입 페이지			|
+|POST		|/user/regist												|회원가입				|
+|GET		|/user/login												|로그인 페이지			|
+|POST		|/user/login												|로그인				|
+|POST		|/user/logout												|로그아웃				|
 
 ## A List Of Functions
 ------
@@ -67,7 +50,7 @@ call insert_articles(10);
 |게시판 검색	        |          |게시글 작성자, 제목, 내용, 댓글 검색	      |
 |파일 등록		        |          |				                  |
 |파일 수정		        |	       |				                  |
-|게시글 댓글 등록	        |          |				                  |
+|게시글 댓글 등록	        |O         |				                  |
 |게시글 댓글 출력	        |          |				                  |
 |게시글 댓글 수정	        |	       |				                  |
 |게시글 댓글 삭제	        |          |				                  |

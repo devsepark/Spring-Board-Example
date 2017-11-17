@@ -17,7 +17,7 @@ public class BoardArticleService {
 	private SqlSessionTemplate sqlSession;
 	
 	//게시글 목록.
-	public List<?> selectBoardList(SearchVo param) {
+	public List<BoardArticle> selectBoardList(SearchVo param) {
 		return sqlSession.selectList("selectBoardList", param);
 	}
 	//게시글 생성.
@@ -26,7 +26,7 @@ public class BoardArticleService {
 	}
 	//게시글 수정
 	public void updateBoard(BoardArticle param) {
-		sqlSession.insert("updateBoard", param);
+		sqlSession.update("updateBoard", param);
 	}
 	//게시글 읽기
 	public BoardArticle selectBoardOne(String param) {
@@ -44,12 +44,21 @@ public class BoardArticleService {
 	public Integer selectBoardCount(SearchVo param) {
 		return sqlSession.selectOne("selectBoardCount", param);
 	}
-
-	public void insertBoardReply(CommentVo param) {
-		if (param.getReplyid()==null || "".equals(param.getReplyid())) {
-			sqlSession.insert("insertBoardReply", param);
-		} else {
-			sqlSession.insert("updateBoardReply", param);
-		}
+	//댓글 저장
+	public void insertBoardComment(CommentVo param) {
+		sqlSession.insert("insertBoardComment", param);
+			
 	}
+	//댓글 수정
+	public void updateBoardComment(CommentVo param) {
+		sqlSession.update("updateBoardComment", param);
+	}
+	//댓글 읽기
+	public List<CommentVo> selectBoardCommentList(String param) {
+		return sqlSession.selectList("selectBoardCommentList", param);
+	}
+	//댓글 삭제
+    public void deleteBoardComment(String param) {
+        sqlSession.delete("deleteBoardComment", param);
+    }    
 }

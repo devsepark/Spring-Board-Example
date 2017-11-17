@@ -7,12 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><c:out value="${boardGroup.name}"/></title>
-<script>
-function fn_search_formSubmit(){
-	//검색
-	document.search_form.submit();
-}
-</script>
 </head>
 <body>
 	<h1><a href="<c:out value="/board/${boardGroup.id}"/>"><c:out value="${boardGroup.name}"/></a></h1>
@@ -75,9 +69,14 @@ function fn_search_formSubmit(){
 		    <!-- 검색 내용 (13키:엔터를 누를 시에 등록 함수 실행) -->
 		    <input type="text" name="searchKeyword" style="width:150px;" maxlength="50" value='<c:out value="${searchVo.searchKeyword}"/>' 
 		    onkeydown="if(event.keyCode == 13) { fn_search_formSubmit();}">
-		    <input name="btn_search" value="검색" type="button" onclick="fn_search_formSubmit()" />
+		    <input name="btn_search" value="검색" type="button" onclick="searchFormSubmit()" />
 		</div>
 	</form>
-	
+<script>
+	function searchFormSubmit(){
+		//검색
+		document.search_form.submit();
+	}
+</script>
 </body>
 </html>

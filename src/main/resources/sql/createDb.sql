@@ -53,3 +53,19 @@ CREATE TABLE `user` (
 	`date` DATETIME NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 );
+
+#테스트 프로시져
+delimiter //
+create procedure insert_articles(num int)
+begin
+	declare i int;
+	set i = 0;
+	while i <= num do
+		insert into board_article(groupid, title, writer, content, date, hit, isdeleted)
+		values ('tip', concat('제목',i), concat('작성자',i), concat('내용',i), now(), 0, 0);
+		set i = i + 1;
+	end while;
+end//
+delimiter ;
+
+call insert_articles(10);

@@ -1,24 +1,24 @@
 package devsepark.board.common;
 
 public class CommentVo {
-	private String boardid;
-	private String replyid;
+	private String articleid;
+	private String commentid;
 	private String writer;
 	private String content;
 	private String date;
 	private String isdeleted;
 	
-	public String getBoardid() {
-		return boardid;
+	public String getArticleid() {
+		return articleid;
 	}
-	public void setBoardid(String boardid) {
-		this.boardid = boardid;
+	public void setArticleid(String articleid) {
+		this.articleid = articleid;
 	}
-	public String getReplyid() {
-		return replyid;
+	public String getCommentid() {
+		return commentid;
 	}
-	public void setReplyid(String replyid) {
-		this.replyid = replyid;
+	public void setCommentid(String commentid) {
+		this.commentid = commentid;
 	}
 	public String getWriter() {
 		return writer;
