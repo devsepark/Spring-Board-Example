@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><c:out value="${boardGroup.name}"/></title>
+<title><c:out value="${boardGroup.detailedname}"/></title>
 </head>
 <body>
-	<form name="update_form" action="<c:out value="/board/${boardArticle.groupid}/article/${boardArticle.articleid}"/>" method="post">
+	<form name="update_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}"/>" method="post">
 		<table border="1" style="width:600px">
 			<caption>게시판</caption>
 			<colgroup>

@@ -6,13 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><c:out value="${boardGroup.name}"/></title>
+<title><c:out value="${boardGroup.detailedname}"/></title>
+<link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
-	<h1><a href="<c:out value="/board/${boardGroup.id}"/>"><c:out value="${boardGroup.name}"/></a></h1>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
+	<br><br>
+	<h1><a href="<c:out value="/board/${boardGroup.simplename}"/>"><c:out value="${boardGroup.detailedname}"/></a></h1>
 	<!-- 게시판 그룹 글쓰기 권한 확인 -->
 	<c:if test="${boardGroup.readonly==0}">
-		<a href="<c:out value="/board/${boardGroup.id}/form"/>">글쓰기</a>
+		<a href="<c:out value="/board/${boardGroup.simplename}/form"/>">글쓰기</a>
 	</c:if>
 	<!-- 게시글 테이블 -->
 	<table border="1" style="width: 600px">
@@ -34,7 +37,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="articleList" items="${articleList}" varStatus="status">
-				<c:url var="link" value="/board/${boardGroup.id}/article/${articleList.articleid}"/>
+				<c:url var="link" value="/board/${boardGroup.simplename}/article/${articleList.articleid}"/>
 				<tr>
 					<td><c:out value="${articleList.articleid}" /></td>
 					<td>
@@ -52,7 +55,7 @@
 	<!-- TODO 검색 기능 확장 (드롭박스로)(제목,내용,제목+내용,작성자,댓글) -->
 	
 	<!-- 페이징 폼 -->
-	<form id="paging_form" name="paging_form" method="get" action="<c:out value="/board/${boardGroup.id}"/>">
+	<form id="paging_form" name="paging_form" method="get" action="<c:out value="/board/${boardGroup.simplename}"/>">
 		<!-- 페이징 처리 -->
 		<jsp:include page="/WEB-INF/jsp/common/paging.jsp" />
 	</form>

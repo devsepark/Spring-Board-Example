@@ -1,5 +1,7 @@
 package devsepark.board.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,5 +15,9 @@ public class BoardGroupService {
 	
 	public BoardGroup selectBoardGroupOne(String param) {
 		return sqlSession.selectOne("selectBoardGroupOne", param);
+	}
+	
+	public List<BoardGroup> selectBoardGroupList() {
+		return sqlSession.selectList("selectBoardGroupList");
 	}
 }

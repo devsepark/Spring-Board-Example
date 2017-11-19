@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><c:out value="${boardGroup.name}"/></title>
+<title><c:out value="${boardGroup.detailedname}"/></title>
 </head>
 <body>
 	<!-- 글쓰기 폼 -->

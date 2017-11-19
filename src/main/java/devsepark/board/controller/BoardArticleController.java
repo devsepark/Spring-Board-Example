@@ -68,7 +68,7 @@ public class BoardArticleController {
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
-		board.setGroupid(boardid);
+		board.setGroupid(boardGroup.getId());
     	boardArticleService.insertBoard(board);
     	
         return "redirect:/board/"+boardid;
@@ -83,7 +83,13 @@ public class BoardArticleController {
         if(article == null) {
         	//TODO return 404error page.
         }
+        BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+		if(boardGroup == null) {
+			//TODO return 404error page
+		}
+		
     	modelMap.addAttribute("boardArticle", article);
+    	modelMap.addAttribute("boardGroup", boardGroup);
     	
         return "/board/board_update";
     }

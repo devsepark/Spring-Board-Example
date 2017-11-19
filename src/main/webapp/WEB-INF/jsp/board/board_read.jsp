@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><c:out value="${boardGroup.name}-${boardArticle.title}"/></title>
+<title><c:out value="${boardGroup.detailedname}-${boardArticle.title}"/></title>
 <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
@@ -32,18 +32,18 @@
 		</tbody>
 	</table>
 	<!-- 뒤로가기 -->
-	<a href="<c:out value="/board/${boardArticle.groupid}"/>">돌아가기</a>
+	<a href="<c:out value="/board/${boardGroup.simplename}"/>">돌아가기</a>
 	<!-- 수정 -->
-	<a href="<c:out value="/board/${boardArticle.groupid}/article/${boardArticle.articleid}/form"/>">수정</a>
+	<a href="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/form"/>">수정</a>
 	<!-- 삭제 폼 -->
-	<form name="delete_form" action="<c:out value="/board/${boardArticle.groupid}/article/${boardArticle.articleid}"/>" method="post">
+	<form name="delete_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}"/>" method="post">
 		<input type="hidden" name="_method" value="delete"> 
 		<a href="#" onclick="delete_form.submit()">삭제</a>
 	</form>
 	<p>&nbsp;</p>
 	<!-- 댓글 폼 -->
 	<div style="border: 1px solid; width: 600px; padding: 5px">
-    	<form name="comment_form" action="/board/${boardArticle.groupid}/article/${boardArticle.articleid}/comment" method="post">
+    	<form name="comment_form" action="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/comment" method="post">
        		 작성자: <input type="text" name="writer" size="20" maxlength="20"> <br/>
         	<textarea name="content" rows="3" cols="60" maxlength="500" placeholder="댓글을 달아주세요."></textarea>
         	<a href="#" onclick="commentFormSubmit()">저장</a>
@@ -61,7 +61,7 @@
 	</c:forEach>
 	<!-- 댓글 수정 폼 -->
 	<div id="comment_div" style="width: 99%; display:none">
-	    <form name="comment_update_form" action="/board/${boardArticle.groupid}/article/${boardArticle.articleid}/comment/" method="post">
+	    <form name="comment_update_form" action="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/comment/" method="post">
 	    	<input type="hidden" name="_method" value="put">
 	        <textarea name="content" rows="3" cols="60" maxlength="500"></textarea>
 	        <a href="#" onclick="commentUpdateSave()">저장</a>

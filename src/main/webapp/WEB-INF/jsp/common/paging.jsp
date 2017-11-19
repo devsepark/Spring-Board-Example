@@ -7,11 +7,11 @@
 	<div class="paging">
 		<!-- 현재 페이지가 1보다 클 경우, 처음버튼 생성 -->
 		<c:if test="${searchVo.page>1}">
-			<a href="javascript:fn_submitForm(1);">[처음]</a>
+			<a href="javascript:submitForm(1);">[처음]</a>
 		</c:if>
 		<!-- 시작 페이지가 10 보다 클 경우, 이전버튼 생성 -->
 		<c:if test="${searchVo.startPage>10}">
-			<a href="javascript:fn_submitForm(${searchVo.startPage-1});">[이전]</a>
+			<a href="javascript:submitForm(${searchVo.startPage-1});">[이전]</a>
 		</c:if>
 		<!-- 시작 페이지부터 마지막페이지까지 1씩 증가하며 반복 -->
 		<c:forEach var="i" begin="${searchVo.startPage}" end="${searchVo.endPage}" step="1" varStatus="status">
@@ -22,7 +22,7 @@
                 </c:when>
                 <%-- 그렇지 않으면 i를 링크 --%>
                 <c:otherwise>
-                	<a href="javascript:fn_submitForm(${i});"><c:out value="${i}"/></a>
+                	<a href="javascript:submitForm(${i});"><c:out value="${i}"/></a>
                 </c:otherwise>
             </c:choose>
             <%-- 반복문이 마지막이 아닐경우 |로 구분자를 넣음  --%>
@@ -30,11 +30,11 @@
         </c:forEach>
         <!-- 전체페이지가 보이는 마지막페이지보다 클경우, 다음버튼 생성 -->
         <c:if test="${searchVo.totalPage > searchVo.endPage}">
-        	<a href="javascript:fn_submitForm(${searchVo.endPage+1});">[다음]</a>
+        	<a href="javascript:submitForm(${searchVo.endPage+1});">[다음]</a>
         </c:if>
         <!-- 전체페이지가 현재 페이지보다 클 경우, 마지막 버튼 생성  -->
 		<c:if test="${searchVo.totalPage > searchVo.page}">
-			<a href="javascript:fn_submitForm(${searchVo.totalPage});">[마지막]</a>
+			<a href="javascript:submitForm(${searchVo.totalPage});">[마지막]</a>
 		</c:if>
 	</div>
 	<br/>
@@ -61,7 +61,7 @@
 
 	<script type="text/javascript">
 	//검색 폼의 현재 페이지를 설정하고 등록
-	function fn_submitForm(page){ 
+	function submitForm(page){ 
 		document.paging_form.page.value=page;
 		document.paging_form.submit();
 	}

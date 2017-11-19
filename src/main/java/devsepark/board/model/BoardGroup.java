@@ -2,7 +2,8 @@ package devsepark.board.model;
 
 public class BoardGroup {
 	private String id;
-	private String name;
+	private String simplename;
+	private String detailedname;
 	private String parent;
 	private String isdeleted;
 	private String isavailable;
@@ -16,11 +17,17 @@ public class BoardGroup {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
+	public String getSimplename() {
+		return simplename;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setSimplename(String simplename) {
+		this.simplename = simplename;
+	}
+	public String getDetailedname() {
+		return detailedname;
+	}
+	public void setDetailedname(String detailedname) {
+		this.detailedname = detailedname;
 	}
 	public String getParent() {
 		return parent;
@@ -40,11 +47,11 @@ public class BoardGroup {
 	public void setIsavailable(String isavailable) {
 		this.isavailable = isavailable;
 	}
-	public String getIscommented() {
+	public String getIscommentable() {
 		return iscommentable;
 	}
-	public void setIscommented(String iscommented) {
-		this.iscommentable = iscommented;
+	public void setIscommentable(String iscommentable) {
+		this.iscommentable = iscommentable;
 	}
 	public String getReadonly() {
 		return readonly;

@@ -3,7 +3,7 @@ create database board;								#board 데이터베이스 생성
 use board;											#board 데이터베이스 사용
 
 CREATE TABLE `board_article` (						#게시판 테이블
-	`groupid` VARCHAR(20) NOT NULL,					#게시판 그룹id
+	`groupid` VARCHAR(11) NOT NULL,					#게시판 그룹id
 	`articleid` INT(11) NOT NULL AUTO_INCREMENT,	#게시글 id, auto_increment
 	`title` VARCHAR(50) NULL DEFAULT NULL,			#게시글 제목
 	`writer` VARCHAR(20) NULL DEFAULT NULL,			#게시글 작성자
@@ -34,9 +34,10 @@ CREATE TABLE `board_file` (
 );
 
 CREATE TABLE `board_group` (						#게시판 그룹 테이블
-	`id` VARCHAR(20) NOT NULL,						#게시판 그룹 id (ex:tip)
-	`name` VARCHAR(20) NULL DEFAULT NULL,			#게시판 그룹 명 (팁n강의 게시판)
-	`parent` VARCHAR(20) NULL DEFAULT NULL,			#부모 게시판
+	`id` INT(11) NOT NULL AUTO_INCREMENT,			#게시판 그룹 id (1~)
+	`simplename` VARCHAR(20) NOT NULL,				#게시판 그룹 명 (ex:tip)
+	`detailednamename` VARCHAR(20) NULL DEFAULT NULL,#게시판 그룹 명 (팁n강의 게시판)
+	`parent` INT(11) NULL DEFAULT NULL,				#부모 게시판 id
 	`isdeleted` TINYINT(1) NULL DEFAULT NULL,		#삭제여부 0:삭제안함 1:삭제됨
 	`isavailable` TINYINT(1) NULL DEFAULT NULL,		#가능여부 0:불가능 1:가능
 	`iscommentable` TINYINT(1) NULL DEFAULT NULL,	#댓글가능여부 0:불가능 1:가능
@@ -59,10 +60,10 @@ delimiter //
 create procedure insert_articles(num int)
 begin
 	declare i int;
-	set i = 0;
+	set i = 1;
 	while i <= num do
 		insert into board_article(groupid, title, writer, content, date, hit, isdeleted)
-		values ('tip', concat('제목',i), concat('작성자',i), concat('내용',i), now(), 0, 0);
+		values (1, concat('제목',i), concat('작성자',i), concat('내용',i), now(), 0, 0);
 		set i = i + 1;
 	end while;
 end//

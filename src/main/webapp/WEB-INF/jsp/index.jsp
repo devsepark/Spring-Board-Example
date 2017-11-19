@@ -7,22 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>IT QnA</title>
+<link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
-	<a href="/board/tip">팁n강의 게시판</a>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 	
-	<c:choose>
-    <c:when test="${sessionScope.user.getId() == null}">
-        <a href="/user/login/form">로그인</a>
-        <a href="/user/regist/form">회원가입</a>
-    </c:when>
-    <c:otherwise>
-    	<br>
-        ${sessionScope.user.getName()}님이 로그인중입니다.
-        <form action="/user/logout" method="post">
-        	<input type="submit" value="로그아웃">
-        </form>
-    </c:otherwise>
-	</c:choose>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 </body>
 </html>

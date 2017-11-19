@@ -117,9 +117,16 @@
     
 	<!-- 게시판 그룹 읽어오기 -->
 	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">
-        SELECT id, name, isavailable, iscommentable, readonly
+        SELECT id, simplename, detailedname, isavailable, iscommentable, readonly
           FROM board_group
-         WHERE isdeleted=0 AND id=#{id} 
+         WHERE isdeleted=0 AND simplename=#{simplename} 
+    </select> 
+    
+    <!-- 게시판 그룹 리스트 -->
+	<select id="selectBoardGroupList" resultType="devsepark.board.model.BoardGroup">
+        SELECT id, simplename, detailedname, parent, isavailable
+          FROM board_group
+         WHERE isdeleted=0
     </select> 
 </mapper>
 
