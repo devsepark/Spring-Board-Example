@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><c:out value="${boardGroup.detailedname}"/></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><c:out value="${boardGroup.detailedname}-${boardArticle.title}"/></title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 	<form name="update_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}"/>" method="post">
@@ -33,5 +36,7 @@
 		<input type="hidden" name = "_method" value="put">
 		<a href="#" onclick="update_form.submit()">저장</a>
 	</form>	
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 </body>
 </html>

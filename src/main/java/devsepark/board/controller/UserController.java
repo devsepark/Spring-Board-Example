@@ -19,7 +19,7 @@ public class UserController {
 	UserService userService;
 	
 	// 회원가입 페이지
-	@RequestMapping(value = "/regist/form", method=RequestMethod.GET)
+	@RequestMapping(value = "/regist", method=RequestMethod.GET)
 	public String userRegistForm() {
 		
 		return "/user/regist";
@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	//로그인 페이지
-	@RequestMapping(value = "/login/form", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String userLoginForm() {
 		
 		return "/user/login";

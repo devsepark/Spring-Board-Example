@@ -3,7 +3,7 @@ package devsepark.board.model;
 //게시판 모델 클래스
 public class BoardArticle {
 	private String groupid;		//그룹id
-	private String articleid;	//게시글id
+	private String id;			//게시글id
 	private String title;		//게시글제목
 	private String writer;		//게시글작성자
 	private String content;		//게시글내용
@@ -17,11 +17,11 @@ public class BoardArticle {
 	public void setGroupid(String groupid) {
 		this.groupid = groupid;
 	}
-	public String getArticleid() {
-		return articleid;
+	public String getId() {
+		return id;
 	}
-	public void setArticleid(String articleid) {
-		this.articleid = articleid;
+	public void setId(String id) {
+		this.id = id;
 	}
 	//제목 스크립트 실행 방지
 	public String getTitle() {

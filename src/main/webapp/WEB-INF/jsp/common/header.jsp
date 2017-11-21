@@ -22,6 +22,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li<c:if test="${boardGroup.simplename eq 'community'}"> class="active"</c:if>><a href="/board/community">전체</a></li>
+                <li role="separator" class="divider"></li>
                 <li<c:if test="${boardGroup.simplename eq 'notice'}"> class="active"</c:if>><a href="/board/notice">공지사항</a></li>
                 <li<c:if test="${boardGroup.simplename eq 'forum'}"> class="active"</c:if>><a href="/board/forum">포럼</a></li>
                 <li<c:if test="${boardGroup.simplename eq 'free'}"> class="active"</c:if>><a href="/board/free">자유게시판</a></li>
@@ -37,9 +38,25 @@
 			<button type="submit" class="btn btn-default">검색</button>
 		  </form>
 		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="/user/regist"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<li><a href="#" data-toggle="modal" data-target="#regist-modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 		  </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h1>Login to Your Account</h1><br>
+				  <form>
+					<input type="text" name="user" placeholder="Username">
+					<input type="password" name="pass" placeholder="Password">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+					
+				  <div class="login-help">
+					<a href="#">Register</a> - <a href="#">Forgot Password</a>
+				  </div>
+				</div>
+			</div>
+		  </div>

@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${boardGroup.detailedname}"/></title>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 	<!-- 글쓰기 폼 -->
-	<form name="write_form" action="/board/tip" method="post">
+	<form name="write_form" action="<c:out value="/board/${boardGroup.simplename}"/>" method="post">
 		<table border="1" style="width:600px">
 			<caption>게시판</caption>
 			<colgroup>
@@ -55,5 +58,7 @@
 		document.write_form.submit();
 	}
 </script>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 </body>
 </html>

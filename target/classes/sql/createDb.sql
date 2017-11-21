@@ -4,7 +4,7 @@ use board;											#board 데이터베이스 사용
 
 CREATE TABLE `board_article` (						#게시판 테이블
 	`groupid` VARCHAR(11) NOT NULL,					#게시판 그룹id
-	`articleid` INT(11) NOT NULL AUTO_INCREMENT,	#게시글 id, auto_increment
+	`id` INT(11) NOT NULL AUTO_INCREMENT,	#게시글 id, auto_increment
 	`title` VARCHAR(50) NULL DEFAULT NULL,			#게시글 제목
 	`writer` VARCHAR(20) NULL DEFAULT NULL,			#게시글 작성자
 	`content` VARCHAR(4000) NULL DEFAULT NULL,		#게시글 내용
@@ -16,7 +16,7 @@ CREATE TABLE `board_article` (						#게시판 테이블
 	
 CREATE TABLE `board_comment` (						#게시판 댓글 테이블
 	`articleid` INT(11) NOT NULL,						
-	`commentid` INT(11) NOT NULL,					
+	`id` INT(11) NOT NULL,					
 	`writer` VARCHAR(20) NOT NULL,					
 	`content` VARCHAR(500) NULL DEFAULT NULL,		
 	`date` DATETIME NULL DEFAULT NULL,				
@@ -54,6 +54,38 @@ CREATE TABLE `user` (
 	`date` DATETIME NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 );
+
+#게시판 그룹 생성
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('1', 'qna', 'QnA', '0', '0', '1', '1', '0', now());
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('2', 'tip', '팁n강의 게시판', '0', '0', '1', '1', '0', now());
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('3', 'community', '커뮤니티', '0', '0', '1', '1', '0', now());
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('4', 'notice', '공지사항', '3', '0', '1', '1', '0', now());
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('5', 'forum', '포럼', '3', '0', '1', '1', '0', now());
+
+INSERT INTO 
+`board`.`board_group` (`id`, `simplename`, `detailedname`, `parent`, `isdeleted`, `isavailable`, `iscommentable`, `readonly`, `date`) 
+VALUES 
+('6', 'free', '자유게시판', '3', '0', '1', '1', '0', now());
 
 #테스트 프로시져
 delimiter //

@@ -5,17 +5,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${boardGroup.detailedname}-${boardArticle.title}"/></title>
 <link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-	<!-- 글 내용 테이블 -->
-	<table border="1" style="width: 600px">
-		<caption>게시판</caption>
-		<colgroup>
-			<col width='15%' />
-			<col width='*%' />
-		</colgroup>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
+  <div class="container">
+    <div class="table-responsive">
+	  <!-- 글 내용 테이블 -->
+	  <table class="table table-hover">
 		<tbody>
 			<tr>
 				<td>작성자</td>
@@ -30,20 +30,21 @@
 				<td><c:out value="${boardArticle.content}" escapeXml="false" /></td>
 			</tr>
 		</tbody>
-	</table>
+	  </table>
+	</div>
 	<!-- 뒤로가기 -->
 	<a href="<c:out value="/board/${boardGroup.simplename}"/>">돌아가기</a>
 	<!-- 수정 -->
 	<a href="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/form"/>">수정</a>
 	<!-- 삭제 폼 -->
-	<form name="delete_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}"/>" method="post">
+	<form name="delete_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.id}"/>" method="post">
 		<input type="hidden" name="_method" value="delete"> 
 		<a href="#" onclick="delete_form.submit()">삭제</a>
 	</form>
 	<p>&nbsp;</p>
 	<!-- 댓글 폼 -->
 	<div style="border: 1px solid; width: 600px; padding: 5px">
-    	<form name="comment_form" action="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/comment" method="post">
+    	<form name="comment_form" action="/board/${boardGroup.simplename}/article/${boardArticle.id}/comment" method="post">
        		 작성자: <input type="text" name="writer" size="20" maxlength="20"> <br/>
         	<textarea name="content" rows="3" cols="60" maxlength="500" placeholder="댓글을 달아주세요."></textarea>
         	<a href="#" onclick="commentFormSubmit()">저장</a>
@@ -53,22 +54,22 @@
 	<c:forEach var="commentList" items="${commentList}" varStatus="status">
 	    <div style="border: 1px solid gray; width: 600px; padding: 5px; margin-top: 5px;">    
 	        <c:out value="${commentList.writer}"/> <c:out value="${commentList.date}"/>
-	        <a href="#" onclick="commentDelete('<c:out value="${commentList.commentid}"/>')">삭제</a>
-	        <a href="#" onclick="commentUpdate('<c:out value="${commentList.commentid}"/>')">수정</a>
+	        <a href="#" onclick="commentDelete('<c:out value="${commentList.id}"/>')">삭제</a>
+	        <a href="#" onclick="commentUpdate('<c:out value="${commentList.id}"/>')">수정</a>
 	        <br/>
-	        <div id="comment<c:out value="${commentList.commentid}"/>"><c:out value="${commentList.content}"/></div>
+	        <div id="comment<c:out value="${commentList.id}"/>"><c:out value="${commentList.content}"/></div>
 	    </div>
 	</c:forEach>
 	<!-- 댓글 수정 폼 -->
 	<div id="comment_div" style="width: 99%; display:none">
-	    <form name="comment_update_form" action="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/comment/" method="post">
+	    <form name="comment_update_form" action="/board/${boardGroup.simplename}/article/${boardArticle.id}/comment/" method="post">
 	    	<input type="hidden" name="_method" value="put">
 	        <textarea name="content" rows="3" cols="60" maxlength="500"></textarea>
 	        <a href="#" onclick="commentUpdateSave()">저장</a>
 	        <a href="#" onclick="commentUpdateCancel()">취소</a>
 	    </form>
 	</div>
-
+  </div>
 <script>
 //댓글 저장
 function commentFormSubmit(){

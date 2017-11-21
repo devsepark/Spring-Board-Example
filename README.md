@@ -1,6 +1,7 @@
 # Spring-Board-Example
 Spring board example. (practice project)
 
+- Spring 4.2.3
 - Maria DB 10.2.9
 - Bootstrap 3.3.7
 - jquery-3.2.1

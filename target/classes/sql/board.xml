@@ -14,14 +14,13 @@
 			</foreach>
 		</if>
 	</sql>
-	
 	<!-- 게시판 리스트 (검색 조건을 포함)-->
 	<select id="selectBoardList" resultType="devsepark.board.model.BoardArticle" parameterType="devsepark.board.common.SearchVo">
-		SELECT articleid, title, writer, date_format(date,'%Y-%m-%d') date, hit
+		SELECT id, title, writer, date_format(date,'%Y-%m-%d') date, hit
 		FROM
 		board_article
 		<include refid="includeBoard" />
-		ORDER BY articleid DESC
+		ORDER BY id DESC
 		LIMIT ${rowStart - 1}, ${displayRowCount}
 	</select>
 	
@@ -35,13 +34,13 @@
 	<!-- 게시글 생성 -->
 	<insert id="insertBoard" parameterType="devsepark.board.model.BoardArticle">
 		<selectKey resultType="String" keyProperty="articleid" order="BEFORE">
-            SELECT IFNULL(MAX(articleid),0)+1 FROM board_article
+            SELECT IFNULL(MAX(id),0)+1 FROM board_article
         </selectKey>
 
 		INSERT INTO
-		board_article(groupid, articleid, title, writer, content, date, hit, isdeleted)
+		board_article(groupid, id, title, writer, content, date, hit, isdeleted)
 		VALUES
-		(#{groupid}, #{articleid}, #{title}, #{writer}, #{content}, NOW(), 0, 0 )
+		(#{groupid}, #{id}, #{title}, #{writer}, #{content}, NOW(), 0, 0 )
 	</insert>
 	
 	<!-- 게시글 수정 -->
@@ -51,7 +50,7 @@
 		title=#{title}
 		, writer=#{writer}
 		, content=#{content}
-		WHERE articleid=#{articleid}
+		WHERE id=#{id}
 		AND
 		isdeleted=0
 	</update>
@@ -61,15 +60,15 @@
 		UPDATE board_article
 		SET
 		hit = hit +1
-		WHERE articleid =#{articleid}
+		WHERE id =#{id}
 	</update>
 	
 	<!-- 게시글 읽기 -->
 	<select id="selectBoardOne" parameterType="String" resultType="devsepark.board.model.BoardArticle">
-		SELECT groupid, articleid, title, writer, content,
+		SELECT groupid, id, title, writer, content,
 		DATE_FORMAT(date,'%Y-%m-%d') date
 		FROM board_article
-		WHERE articleid=#{articleid}
+		WHERE id=#{id}
 		AND
 		isdeleted=0
 	</select>
@@ -79,33 +78,32 @@
 		UPDATE board_article
 		SET
 		isdeleted=1
-		WHERE articleid=#{articleid}
+		WHERE id=#{id}
 	</delete>
-
 	<!-- 댓글 입력. -->
-	<insert id="insertBoardComment" parameterType="devsepark.board.common.CommentVo">
+	<insert id="insertBoardComment" parameterType="devsepark.board.model.BoardComment">
 		<selectKey resultType="String" keyProperty="commentid" order="BEFORE">
-			SELECT IFNULL(MAX(commentid),0)+1 FROM board_comment
+			SELECT IFNULL(MAX(id),0)+1 FROM board_comment
 		</selectKey>
 
-		INSERT INTO board_comment(articleid, commentid, writer, isdeleted,
+		INSERT INTO board_comment(articleid, id, writer, isdeleted,
 		content, date)
-		VALUES (#{articleid}, #{commentid}, #{writer}, 0, #{content}, NOW())
+		VALUES (#{articleid}, #{id}, #{writer}, 0, #{content}, NOW())
 	</insert>
 	
 	<!-- 댓글 수정 -->
-	<update id="updateBoardComment" parameterType="devsepark.board.common.CommentVo">
+	<update id="updateBoardComment" parameterType="devsepark.board.model.BoardComment">
 		UPDATE board_comment
 		SET content=#{content}
-		WHERE commentid=#{commentid}
+		WHERE id=#{id}
 	</update>
 	
 	<!-- 댓글 리스트 -->
-    <select id="selectBoardCommentList" resultType="devsepark.board.common.CommentVo" parameterType="String">
-        SELECT articleid, commentid, writer, isdeleted, content, date 
+    <select id="selectBoardCommentList" resultType="devsepark.board.model.BoardComment" parameterType="String">
+        SELECT articleid, id, writer, isdeleted, content, date 
           FROM board_comment
          WHERE articleid=#{articleid} AND isdeleted=0
-         ORDER BY commentid
+         ORDER BY id
     </select>
     
 	<!-- 댓글 삭제 -->
@@ -114,7 +112,6 @@
            SET isdeleted=1
          WHERE commentid=#{commentid}       
     </update>
-    
 	<!-- 게시판 그룹 읽어오기 -->
 	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">
         SELECT id, simplename, detailedname, isavailable, iscommentable, readonly

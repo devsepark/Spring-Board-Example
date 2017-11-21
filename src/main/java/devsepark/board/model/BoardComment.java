@@ -1,8 +1,8 @@
-package devsepark.board.common;
+package devsepark.board.model;
 
-public class CommentVo {
+public class BoardComment {
 	private String articleid;
-	private String commentid;
+	private String id;
 	private String writer;
 	private String content;
 	private String date;
@@ -14,11 +14,11 @@ public class CommentVo {
 	public void setArticleid(String articleid) {
 		this.articleid = articleid;
 	}
-	public String getCommentid() {
-		return commentid;
+	public String getId() {
+		return id;
 	}
-	public void setCommentid(String commentid) {
-		this.commentid = commentid;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getWriter() {
 		return writer;
