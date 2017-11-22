@@ -16,30 +16,30 @@ public class BoardCommentController {
 	private BoardCommentService boardCommentService;	//게시판 서비스
 	
 	//댓글 저장
-    @RequestMapping(value = "/{boardid}/article/{articleid}/comment", method = RequestMethod.POST)
-    public String boardCommentSave(@PathVariable("boardid") String boardid
+    @RequestMapping(value = "/{boardname}/article/{articleid}/comment", method = RequestMethod.POST)
+    public String boardCommentSave(@PathVariable("boardname") String boardname
     		, @PathVariable("articleid") String articleid, BoardComment commentVo) {
         
     	boardCommentService.insertBoardComment(commentVo);
     	
-        return "redirect:/board/"+boardid+"/article/"+articleid;
+        return "redirect:/board/"+boardname+"/article/"+articleid;
     }
     //댓글 수정
-    @RequestMapping(value = "/{boardid}/article/{articleid}/comment/{commentid}", method = RequestMethod.PUT)
-    public String boardCommentUpdate(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid
+    @RequestMapping(value = "/{boardname}/article/{articleid}/comment/{commentid}", method = RequestMethod.PUT)
+    public String boardCommentUpdate(@PathVariable("boardname") String boardname, @PathVariable("articleid") String articleid
     		, @PathVariable("commentid") String commentid, BoardComment commentVo) {
         
     	boardCommentService.updateBoardComment(commentVo);
     	
-        return "redirect:/board/"+boardid+"/article/"+articleid;
+        return "redirect:/board/"+boardname+"/article/"+articleid;
     }
     //댓글 삭제
-    @RequestMapping(value = "/{boardid}/article/{articleid}/comment/{commentid}", method = RequestMethod.DELETE)
-    public String boardCommentDelete(@PathVariable("boardid") String boardid, @PathVariable("articleid") String articleid
+    @RequestMapping(value = "/{boardname}/article/{articleid}/comment/{commentid}", method = RequestMethod.DELETE)
+    public String boardCommentDelete(@PathVariable("boardname") String boardname, @PathVariable("articleid") String articleid
     		, @PathVariable("commentid") String commentid) {
     	
     	boardCommentService.deleteBoardComment(commentid);
     	
-    	return "redirect:/board/" + boardid + "/article/" + articleid;
+    	return "redirect:/board/" + boardname + "/article/" + articleid;
     }
 }

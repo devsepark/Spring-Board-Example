@@ -30,12 +30,12 @@ public class BoardArticleController {
 	private BoardCommentService boardCommentService;
 	
 	//리스트 페이지
-	@RequestMapping(value = "/{boardid}", method = RequestMethod.GET )
-	public String boardList(@PathVariable("boardid") String boardid, SearchVo searchVo, ModelMap modelMap) {
+	@RequestMapping(value = "/{boardname}", method = RequestMethod.GET )
+	public String boardArticleList(@PathVariable("boardname") String boardname, SearchVo searchVo, ModelMap modelMap) {
 		
-		BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+		BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
-			System.out.println("boardid : " + boardid);
+			System.out.println("boardid : " + boardname);
 			//TODO return 404error page
 		}
 		searchVo.setGroupid(boardGroup.getId());
@@ -51,10 +51,10 @@ public class BoardArticleController {
 	}
 	
 	//글쓰기 폼 페이지
-    @RequestMapping(value = "/{boardid}/form", method = RequestMethod.GET)
-   	public String boardForm(@PathVariable("boardid") String boardid, ModelMap modelMap) {
+    @RequestMapping(value = "/{boardname}/form", method = RequestMethod.GET)
+   	public String boardArticleForm(@PathVariable("boardname") String boardname, ModelMap modelMap) {
     	
-    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
@@ -64,29 +64,29 @@ public class BoardArticleController {
     }
     
     //글 저장, ModelAttribute로 게시판 객체를 받아 db에 삽입.
-    @RequestMapping(value = "/{boardid}", method = RequestMethod.POST)
-   	public String boardSave(@PathVariable("boardid") String boardid, @ModelAttribute BoardArticle board) {
+    @RequestMapping(value = "/{boardname}", method = RequestMethod.POST)
+   	public String boardArticleSave(@PathVariable("boardname") String boardname, @ModelAttribute BoardArticle board) {
     	
-    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
 		board.setGroupid(boardGroup.getId());
     	boardArticleService.insertBoard(board);
     	
-        return "redirect:/board/"+boardid;
+        return "redirect:/board/"+boardname;
     }
     
     //글 수정 페이지
-    @RequestMapping(value = "/{boardid}/article/{articleid}/form", method = RequestMethod.GET)
-   	public String boardUpdateForm(@PathVariable("boardid") String boardid
+    @RequestMapping(value = "/{boardname}/article/{articleid}/form", method = RequestMethod.GET)
+   	public String boardUpdateForm(@PathVariable("boardname") String boardname
    			, @PathVariable("articleid") String articleid, ModelMap modelMap) {
     	
     	BoardArticle article = boardArticleService.selectBoardOne(articleid);
         if(article == null) {
         	//TODO return 404error page.
         }
-        BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+        BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
@@ -98,21 +98,21 @@ public class BoardArticleController {
     }
     
     //글 수정 저장
-    @RequestMapping(value = "/{boardid}/article/{articleid}", method = RequestMethod.PUT)
-   	public String boardUpdateSave(@PathVariable("boardid") String boardid
+    @RequestMapping(value = "/{boardname}/article/{articleid}", method = RequestMethod.PUT)
+   	public String boardUpdateSave(@PathVariable("boardname") String boardname
    			, @PathVariable("articleid") String articleid, @ModelAttribute BoardArticle article) {
     	
     	boardArticleService.updateBoard(article);
     	
-        return "redirect:/board/"+boardid+"/article/"+articleid;
+        return "redirect:/board/"+boardname+"/article/"+articleid;
     }
 
     //글 읽기 페이지, 게시판과 게시글 ID를 Path에서 받아 게시글을 조회.
-    @RequestMapping(value = "/{boardid}/article/{articleid}", method = RequestMethod.GET)
-   	public String boardRead(@PathVariable("boardid") String boardid
+    @RequestMapping(value = "/{boardname}/article/{articleid}", method = RequestMethod.GET)
+   	public String boardRead(@PathVariable("boardname") String boardname
    			, @PathVariable("articleid") String articleid, ModelMap modelMap) {
     	
-    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardid);
+    	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
@@ -133,11 +133,11 @@ public class BoardArticleController {
     }
     
     //글 삭제
-    @RequestMapping(value = "/{boardid}/article/{articleid}", method = RequestMethod.DELETE)
-   	public String boardDelete(@PathVariable("articleid") String articleid) {
+    @RequestMapping(value = "/{boardname}/article/{articleid}", method = RequestMethod.DELETE)
+   	public String boardDelete(@PathVariable("boardname") String boardname, @PathVariable("articleid") String articleid) {
     	
     	boardArticleService.deleteBoardOne(articleid);
         
-        return "redirect:/board/tip";
+        return "redirect:/board/" + boardname;
     }
 }

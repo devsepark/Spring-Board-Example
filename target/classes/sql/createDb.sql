@@ -11,7 +11,7 @@ CREATE TABLE `board_article` (						#게시판 테이블
 	`date` DATETIME NULL DEFAULT NULL,				#게시글 작성일자
 	`hit` INT(11) NULL DEFAULT '0',					#게시글 조회수
 	`isdeleted` TINYINT(1) NULL DEFAULT '0',		#게시글 삭제여부
-	PRIMARY KEY (`articleid`)						#기본키는 게시글 id
+	PRIMARY KEY (`id`)						#기본키는 게시글 id
 );
 	
 CREATE TABLE `board_comment` (						#게시판 댓글 테이블
@@ -21,7 +21,7 @@ CREATE TABLE `board_comment` (						#게시판 댓글 테이블
 	`content` VARCHAR(500) NULL DEFAULT NULL,		
 	`date` DATETIME NULL DEFAULT NULL,				
 	`isdeleted` TINYINT(1) NULL DEFAULT '0',		
-	PRIMARY KEY (`commentid`)						
+	PRIMARY KEY (`id`)						
 );
 	
 CREATE TABLE `board_file` (							
@@ -36,7 +36,7 @@ CREATE TABLE `board_file` (
 CREATE TABLE `board_group` (						#게시판 그룹 테이블
 	`id` INT(11) NOT NULL AUTO_INCREMENT,			#게시판 그룹 id (1~)
 	`simplename` VARCHAR(20) NOT NULL,				#게시판 그룹 명 (ex:tip)
-	`detailednamename` VARCHAR(20) NULL DEFAULT NULL,#게시판 그룹 명 (팁n강의 게시판)
+	`detailedname` VARCHAR(20) NULL DEFAULT NULL,#게시판 그룹 명 (팁n강의 게시판)
 	`parent` INT(11) NULL DEFAULT NULL,				#부모 게시판 id
 	`isdeleted` TINYINT(1) NULL DEFAULT NULL,		#삭제여부 0:삭제안함 1:삭제됨
 	`isavailable` TINYINT(1) NULL DEFAULT NULL,		#가능여부 0:불가능 1:가능

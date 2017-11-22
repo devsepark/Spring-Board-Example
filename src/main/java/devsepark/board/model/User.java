@@ -1,5 +1,6 @@
 package devsepark.board.model;
 
+
 public class User {
 	private String id;
 	private String password;

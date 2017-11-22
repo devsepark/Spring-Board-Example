@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
-	<form name="update_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}"/>" method="post">
+	<form name="update_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.id}"/>" method="post">
 		<table border="1" style="width:600px">
 			<caption>게시판</caption>
 			<colgroup>

@@ -35,7 +35,7 @@
 	<!-- 뒤로가기 -->
 	<a href="<c:out value="/board/${boardGroup.simplename}"/>">돌아가기</a>
 	<!-- 수정 -->
-	<a href="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.articleid}/form"/>">수정</a>
+	<a href="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.id}/form"/>">수정</a>
 	<!-- 삭제 폼 -->
 	<form name="delete_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.id}"/>" method="post">
 		<input type="hidden" name="_method" value="delete"> 
