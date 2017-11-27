@@ -52,8 +52,10 @@ CREATE TABLE `user` (
 	`name` VARCHAR(20) NULL DEFAULT NULL,
 	`email` VARCHAR(30) NULL DEFAULT NULL,
 	`date` DATETIME NULL DEFAULT NULL,
+	`authority` VARCHAR(30) NULL DEFAULT 'role_user',
+	`enabled` TINYINT(1) NULL DEFAULT '1',
 	PRIMARY KEY (`id`)
-);
+)
 
 #게시판 그룹 생성
 

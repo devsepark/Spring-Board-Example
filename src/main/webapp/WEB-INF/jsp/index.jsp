@@ -13,7 +13,14 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" />
-	
+	<c:if test="${not empty errorMessage}">
+		<div class="alert alert-danger alert-dismissable fade in">
+	    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	    	<strong>로그인 실패!</strong> 로그인에 실패하였습니다.
+	  		<p>사유 : <c:out value="${errorMessage}"/></p>
+	  	</div>
+  	</c:if>
+  	
 	<div class="jumbotron">
       <div class="container">
         <h1>Hello, world!</h1>
@@ -63,8 +70,16 @@
         <p>devsepark@gmail.com</p>
       </footer>
     </div> <!-- /container -->
-	
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bootstrap.js"></script>
+    
+    <script src="/js/jquery-3.2.1.min.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script>
+	$(document).ready(function(){
+		if('<c:out value="${param.needlogin}"/>'=='true'||'<c:out value="${needlogin}"/>'=='true'){
+			$('#login-modal').modal('show');
+		}
+		
+	});
+	</script>
 </body>
 </html>

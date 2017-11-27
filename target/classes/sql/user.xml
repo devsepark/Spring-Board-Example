@@ -3,14 +3,20 @@
 
 <mapper namespace="user">
 
-	<insert id="insertUser" parameterType="devsepark.board.model.User" >
-    	INSERT INTO user(id, password, name, email, date)
-		VALUES (#{id}, #{password}, #{name}, #{email}, NOW() )
+	<insert id="insertUser" parameterType="devsepark.board.model.UserVo" >
+    	INSERT INTO user(id, password, name, email, date, authority, enabled)
+		VALUES (#{id}, #{password}, #{name}, #{email}, NOW(), #{authority}, 1 )
 	</insert>
 	
-	<select id="login" resultType="String">
-		SELECT id FROM user
-		WHERE id = #{id} and password = #{password}
+	<!-- 유저 조회(스프링 시큐리티 인증) -->
+	<select id="selectUserOne" parameterType="String" resultType="map">
+		SELECT 
+			id as username,
+			password as password,
+			enabled as enabled,
+			authority as authority
+		FROM user
+		WHERE id=#{id}
 	</select>
 </mapper>
 

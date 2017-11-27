@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -37,26 +38,64 @@
 			</div>
 			<button type="submit" class="btn btn-default">검색</button>
 		  </form>
+		  <!-- SignUp/Login/Logout -->
 		  <ul class="nav navbar-nav navbar-right">
+		  
 			<li><a href="#" data-toggle="modal" data-target="#regist-modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 			<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			<sec:authorize access="isAuthenticated()">
+				<li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			</sec:authorize>
 		  </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    	  <div class="modal-dialog">
-				<div class="loginmodal-container">
-					<h1>Login to Your Account</h1><br>
-				  <form>
-					<input type="text" name="user" placeholder="Username">
-					<input type="password" name="pass" placeholder="Password">
-					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
-				  </form>
-					
-				  <div class="login-help">
-					<a href="#">Register</a> - <a href="#">Forgot Password</a>
-				  </div>
-				</div>
-			</div>
+      <div class="modal-dialog">
+	    <div class="loginmodal-container">
+		  <h1>Login to Your Account</h1><br>
+		  <form name="login_form" action='<c:url value="/user/login"/>' method="post" onsubmit="return loginFormSubmit();">
+		    <input type="text" id="login_id" name="login_id" placeholder="Username">
+			<input type="password" id="login_password" name="login_password" placeholder="Password">
+			<input type="submit" id="login_button" name="login_button" class="login loginmodal-submit" value="Login">
+		  </form>
+		  <div class="login-help">
+			<a href="#">Register</a> - <a href="#">Forgot Password</a>
 		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="regist-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+	    <div class="loginmodal-container">
+		  <h1>Register</h1><br>
+		  <form name="regist_form" action='<c:url value="/user/regist"/>' method="post">
+		    <input type="text" id="regist_id" name="id" placeholder="id">
+			<input type="password" id="regist_password" name="password" placeholder="Password">
+			<input type="submit" id="regist_button" name="regist_button" class="login loginmodal-submit" value="regist">
+		  </form>
+		  <div class="login-help">
+			<a href="#">Register</a> - <a href="#">Forgot Password</a>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<script>
+	function loginFormSubmit(){
+		var loginForm = document.login_form;
+		
+		if(loginForm.login_id.value=="") {
+			alert("아이디를 입력해주세요.");
+			loginForm.login_id.focus();
+			return false;
+		}
+		if(loginForm.login_password.value=="") {
+			alert("비밀번호를 입력해주세요.");
+			loginForm.login_password.focus();
+			return false;
+		}else{
+			document.login_form.submit();
+		}
+	}
+	</script>

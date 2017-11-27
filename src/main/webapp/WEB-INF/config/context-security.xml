@@ -3,24 +3,64 @@
 	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd ">
 	
+	<!-- 리소스 -->
 	<http pattern="/css/*.css" security="none"/>
 	<http pattern="/js/*.js" security="none"/>
 	<http pattern="/fonts/*" security="none"/>
 	<http pattern="/images/*" security="none"/>
 	
-	<http auto-config="true" use-expressions="true">
+	<!-- API 권한 설정 -->
+	<http pattern="/api/**" create-session="stateless" use-expressions="true">
+		<intercept-url pattern="/api/test" access="isAuthenticated()"/>
+		<intercept-url pattern="/api/**" access="permitAll"/>
+		
+		<http-basic/>
+	</http>
+	<!-- Web 권한 설정 -->
+	<http pattern="/**" create-session="never" auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		<intercept-url pattern="/board/*/form" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<csrf disabled="true"/>
+		<!-- TODO 로그인 실패 AJAX  -->
+		<form-login 
+			username-parameter="login_id"
+			password-parameter="login_password"
+			login-processing-url="/user/login"
+			login-page="/index?needlogin=true"
+			authentication-success-handler-ref="userLoginSuccessHandler"
+			authentication-failure-handler-ref="userLoginFailureHandler"
+			/>
+		<session-management invalid-session-url="/index?needlogin=true">
+			<concurrency-control max-sessions="1" expired-url="/index?needlogin=true"/>
+		</session-management>
+		<access-denied-handler ref="userDeniedHandler"/>
+		<logout delete-cookies="true" logout-success-url="/index" logout-url="/user/logout" invalidate-session="true"/>
 	</http>
-
+	
+	<!-- Handler -->
+	<beans:bean id="userDeniedHandler"
+		class="devsepark.board.service.UserDeniedHandler"/>
+	<beans:bean id="userLoginSuccessHandler"
+		class="devsepark.board.service.UserLoginSuccessHandler"/>
+	<beans:bean id="userLoginFailureHandler"
+		class="devsepark.board.service.UserLoginFailureHandler"/>
+	
+	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<beans:constructor-arg name="strength" value="256"/>
+	</beans:bean>
+	
+	<beans:bean id="userService" class="devsepark.board.service.UserService" autowire="byType">
+		<beans:constructor-arg name="sqlSession" ref="sqlSession"/>
+	</beans:bean>
+	
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="user1" password="user1" authorities="ROLE_USER"/>
-				<user name="admin1" password="admin1" authorities="ROLE_ADMIN"/>
-			</user-service>
+		<authentication-provider user-service-ref="userService">
+			<password-encoder ref="passwordEncoder">
+				<salt-source user-property="username"/>
+			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
+	
 </beans:beans>
 

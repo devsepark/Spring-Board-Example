@@ -1,5 +1,6 @@
 package devsepark.board.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,15 @@ import devsepark.board.model.BoardGroup;
 public class IndexController {
 	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-	public String index(ModelMap modelMap) {
+	public String index() {
 		
-    	modelMap.addAttribute("boardGroup", new BoardGroup());
 		return "/index";
 	}
+	
+//	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public String indextest(ModelMap modelMap) {
+//		
+//    	modelMap.addAttribute("boardGroup", new BoardGroup());
+//		return "{}";
+//	}
 }

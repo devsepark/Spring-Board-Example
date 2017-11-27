@@ -1,19 +1,14 @@
 package devsepark.board.model;
 
-
-public class User {
+public class UserVo {
 	private String id;
 	private String password;
 	private String name;
 	private String email;
 	private String date;
+	private String authority;
+	private String enabled;
 	
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
 	public String getId() {
 		return id;
 	}
@@ -37,5 +32,23 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	public String getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
 	}
 }

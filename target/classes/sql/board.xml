@@ -33,7 +33,7 @@
 	
 	<!-- 게시글 생성 -->
 	<insert id="insertBoard" parameterType="devsepark.board.model.BoardArticle">
-		<selectKey resultType="String" keyProperty="articleid" order="BEFORE">
+		<selectKey resultType="String" keyProperty="id" order="BEFORE">
             SELECT IFNULL(MAX(id),0)+1 FROM board_article
         </selectKey>
 
@@ -82,7 +82,7 @@
 	</delete>
 	<!-- 댓글 입력. -->
 	<insert id="insertBoardComment" parameterType="devsepark.board.model.BoardComment">
-		<selectKey resultType="String" keyProperty="commentid" order="BEFORE">
+		<selectKey resultType="String" keyProperty="id" order="BEFORE">
 			SELECT IFNULL(MAX(id),0)+1 FROM board_comment
 		</selectKey>
 
@@ -110,7 +110,7 @@
 	<update id="deleteBoardComment" parameterType="String"> 
         UPDATE board_comment
            SET isdeleted=1
-         WHERE commentid=#{commentid}       
+         WHERE id=#{id}       
     </update>
 	<!-- 게시판 그룹 읽어오기 -->
 	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">

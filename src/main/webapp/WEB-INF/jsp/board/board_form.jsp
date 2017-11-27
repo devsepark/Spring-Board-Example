@@ -35,7 +35,9 @@
 		</table>    
 		<a href="#" onclick="writeFormSubmit()">저장</a>
 	</form>	
-	
+
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 <script>
 	function writeFormSubmit(){
 		var writeForm = document.write_form;
@@ -58,7 +60,5 @@
 		document.write_form.submit();
 	}
 </script>
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bootstrap.js"></script>
 </body>
 </html>
