@@ -3,6 +3,8 @@ package devsepark.board.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +16,7 @@ import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardArticle;
 import devsepark.board.model.BoardComment;
 import devsepark.board.model.BoardGroup;
+import devsepark.board.model.UserDetailsVo;
 import devsepark.board.service.BoardGroupService;
 import devsepark.board.service.BoardArticleService;
 import devsepark.board.service.BoardCommentService;
@@ -27,7 +30,7 @@ public class BoardArticleController {
 	@Autowired
 	private BoardGroupService boardGroupService;		//게시판 그룹 서비스
 	@Autowired
-	private BoardCommentService boardCommentService;
+	private BoardCommentService boardCommentService;	//게시판 댓글 서비스
 	
 	//리스트 페이지
 	@RequestMapping(value = "/{boardname}", method = RequestMethod.GET )
@@ -65,13 +68,17 @@ public class BoardArticleController {
     
     //글 저장, ModelAttribute로 게시판 객체를 받아 db에 삽입.
     @RequestMapping(value = "/{boardname}", method = RequestMethod.POST)
-   	public String boardArticleSave(@PathVariable("boardname") String boardname, @ModelAttribute BoardArticle board) {
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+   	public String boardArticleSave(@PathVariable("boardname") String boardname, @ModelAttribute BoardArticle board, Authentication auth) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardname);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
 		board.setGroupid(boardGroup.getId());
+		UserDetailsVo user = (UserDetailsVo) auth.getPrincipal();
+		board.setWriter(user.getName());
+		
     	boardArticleService.insertBoard(board);
     	
         return "redirect:/board/"+boardname;
@@ -79,6 +86,7 @@ public class BoardArticleController {
     
     //글 수정 페이지
     @RequestMapping(value = "/{boardname}/article/{articleid}/form", method = RequestMethod.GET)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
    	public String boardUpdateForm(@PathVariable("boardname") String boardname
    			, @PathVariable("articleid") String articleid, ModelMap modelMap) {
     	
@@ -99,6 +107,7 @@ public class BoardArticleController {
     
     //글 수정 저장
     @RequestMapping(value = "/{boardname}/article/{articleid}", method = RequestMethod.PUT)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
    	public String boardUpdateSave(@PathVariable("boardname") String boardname
    			, @PathVariable("articleid") String articleid, @ModelAttribute BoardArticle article) {
     	

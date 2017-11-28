@@ -45,7 +45,6 @@
 	<!-- 댓글 폼 -->
 	<div style="border: 1px solid; width: 600px; padding: 5px">
     	<form name="comment_form" action="/board/${boardGroup.simplename}/article/${boardArticle.id}/comment" method="post">
-       		 작성자: <input type="text" name="writer" size="20" maxlength="20"> <br/>
         	<textarea name="content" rows="3" cols="60" maxlength="500" placeholder="댓글을 달아주세요."></textarea>
         	<a href="#" onclick="commentFormSubmit()">저장</a>
     	</form>
@@ -70,6 +69,9 @@
 	    </form>
 	</div>
   </div>
+  
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 <script>
 //댓글 저장
 function commentFormSubmit(){
@@ -146,7 +148,5 @@ function commentUpdateCancel(){
 
 	
 </script>
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bootstrap.js"></script>
 </body>
 </html>

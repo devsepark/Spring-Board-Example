@@ -1,12 +1,13 @@
 package devsepark.board.model;
 
+//회원가입-회원탈퇴용 유저VO
 public class UserVo {
 	private String id;
 	private String password;
 	private String name;
 	private String email;
 	private String date;
-	private String authority;
+	private String authority = "ROLE_USER";
 	private String enabled;
 	
 	public String getId() {

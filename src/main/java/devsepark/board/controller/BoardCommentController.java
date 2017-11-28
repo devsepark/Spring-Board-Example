@@ -1,12 +1,15 @@
 package devsepark.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import devsepark.board.model.BoardComment;
+import devsepark.board.model.UserDetailsVo;
 import devsepark.board.service.BoardCommentService;
 
 @Controller
@@ -17,10 +20,14 @@ public class BoardCommentController {
 	
 	//댓글 저장
     @RequestMapping(value = "/{boardname}/article/{articleid}/comment", method = RequestMethod.POST)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public String boardCommentSave(@PathVariable("boardname") String boardname
-    		, @PathVariable("articleid") String articleid, BoardComment commentVo) {
-        
+    		, @PathVariable("articleid") String articleid, BoardComment commentVo, Authentication auth) {
+    	
+		UserDetailsVo user = (UserDetailsVo) auth.getPrincipal();
+		commentVo.setWriter(user.getName());
     	boardCommentService.insertBoardComment(commentVo);
+    	
     	
         return "redirect:/board/"+boardname+"/article/"+articleid;
     }

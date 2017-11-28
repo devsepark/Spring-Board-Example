@@ -40,16 +40,19 @@
 		  </form>
 		  <!-- SignUp/Login/Logout -->
 		  <ul class="nav navbar-nav navbar-right">
-		  
-			<li><a href="#" data-toggle="modal" data-target="#regist-modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		  	<sec:authorize access="isAnonymous()">
+				<li><a href="#" data-toggle="modal" data-target="#regist-modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <c:out value="${username}(${userid})"/></a></li>
 				<li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			</sec:authorize>
 		  </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
+    <!-- Modal Dialog -->
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
       <div class="modal-dialog">
 	    <div class="loginmodal-container">
@@ -73,11 +76,10 @@
 		  <form name="regist_form" action='<c:url value="/user/regist"/>' method="post">
 		    <input type="text" id="regist_id" name="id" placeholder="id">
 			<input type="password" id="regist_password" name="password" placeholder="Password">
+			<input type="text" name="name" placeholder="user name">
+			<input type="email" name="email" placeholder="email">
 			<input type="submit" id="regist_button" name="regist_button" class="login loginmodal-submit" value="regist">
 		  </form>
-		  <div class="login-help">
-			<a href="#">Register</a> - <a href="#">Forgot Password</a>
-		  </div>
 		</div>
 	  </div>
 	</div>

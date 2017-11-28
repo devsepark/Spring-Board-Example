@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 	<!-- 글쓰기 폼 -->
 	<form name="write_form" action="<c:out value="/board/${boardGroup.simplename}"/>" method="post">
 		<table border="1" style="width:600px">
@@ -19,10 +20,6 @@
 				<col width='*%' />
 			</colgroup>
 			<tbody>
-				<tr>
-					<td>작성자</td> 
-					<td><input type="text" name="writer" size="20" maxlength="20"></td> 
-				</tr>
 				<tr>
 					<td>제목</td> 
 					<td><input type="text" name="title" size="70" maxlength="250"></td> 
@@ -42,11 +39,6 @@
 	function writeFormSubmit(){
 		var writeForm = document.write_form;
 		
-		if(writeForm.writer.value=="") {
-			alert("작성자를 입력해주세요.");
-			writeForm.writer.focus();
-			return;
-		}
 		if(writeForm.title.value=="") {
 			alert("글 제목을 입력해주세요.");
 			writeForm.title.focus();

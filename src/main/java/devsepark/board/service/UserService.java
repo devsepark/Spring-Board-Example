@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import devsepark.board.model.UserDetailsVo;
 import devsepark.board.model.UserVo;
 
+//스프링 시큐리티 UserDetailsService를 구현한 서비스
 @Service
 public class UserService implements UserDetailsService{
 	@Autowired
@@ -27,20 +28,30 @@ public class UserService implements UserDetailsService{
 		this.sqlSession = sqlSession;
 	}
 	
-	public int insertUser(UserVo param) {
-		return sqlSession.insert("insertUser", param);
+	public void insertUser(UserVo param) {
+		try {
+			sqlSession.insert("insertUser", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
+	//스프링 시큐리티 인증
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		Map<String, Object> user = sqlSession.selectOne("selectUserOne",username);
-		System.out.println(user.toString());
 		System.out.println(sqlSession.toString());
 		if(user == null ) throw new UsernameNotFoundException(username);
 		List<GrantedAuthority> grantedAuthList = new ArrayList<GrantedAuthority>();
-		grantedAuthList.add(new SimpleGrantedAuthority(user.get("authority").toString()));
+		grantedAuthList.add(new SimpleGrantedAuthority(user.get("authority").toString().toUpperCase()));
 		System.out.println(grantedAuthList.get(0).toString());
-		return new UserDetailsVo(user.get("username").toString(), user.get("password").toString(), user.get("enabled").equals(true), true, true, true, grantedAuthList,user.get("username").toString());
+		return new UserDetailsVo(user.get("username").toString(), 
+				user.get("password").toString(), 
+				user.get("enabled").equals(true), 
+				true, true, true, 
+				grantedAuthList,
+				user.get("username").toString(),
+				user.get("name").toString());
 	}
 }

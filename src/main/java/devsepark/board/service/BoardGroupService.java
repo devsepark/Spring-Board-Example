@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import devsepark.board.model.BoardGroup;
 
+//게시판 그룹 서비스
 @Service
 public class BoardGroupService {
 	@Autowired

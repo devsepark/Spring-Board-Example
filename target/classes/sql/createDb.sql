@@ -48,13 +48,14 @@ CREATE TABLE `board_group` (						#게시판 그룹 테이블
 
 CREATE TABLE `user` (
 	`id` VARCHAR(20) NOT NULL,
-	`password` VARCHAR(20) NULL DEFAULT NULL,
-	`name` VARCHAR(20) NULL DEFAULT NULL,
+	`password` VARCHAR(255) NULL DEFAULT NULL,
+	`name` VARCHAR(20) NOT NULL,
 	`email` VARCHAR(30) NULL DEFAULT NULL,
 	`date` DATETIME NULL DEFAULT NULL,
 	`authority` VARCHAR(30) NULL DEFAULT 'role_user',
 	`enabled` TINYINT(1) NULL DEFAULT '1',
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE INDEX `name` (`name`)
 )
 
 #게시판 그룹 생성

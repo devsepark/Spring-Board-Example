@@ -14,7 +14,8 @@
 			id as username,
 			password as password,
 			enabled as enabled,
-			authority as authority
+			authority as authority,
+			name as name
 		FROM user
 		WHERE id=#{id}
 	</select>

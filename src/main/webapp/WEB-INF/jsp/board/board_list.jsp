@@ -78,14 +78,14 @@
 	</form>
   </div><!-- container -->
 	
-	
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bootstrap.js"></script>
 <script>
 	function searchFormSubmit(){
 		//검색
 		document.search_form.submit();
 	}
 </script>
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bootstrap.js"></script>
+
 </body>
 </html>

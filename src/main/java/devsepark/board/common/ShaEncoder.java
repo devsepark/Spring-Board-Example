@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+//sha256 Encoder class
 @Service("shaEncoder")
 public class ShaEncoder {
 	@Resource(name="passwordEncoder")

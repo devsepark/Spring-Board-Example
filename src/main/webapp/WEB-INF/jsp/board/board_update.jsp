@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/jsp/common/header.jsp" />
 	<form name="update_form" action="<c:out value="/board/${boardGroup.simplename}/article/${boardArticle.id}"/>" method="post">
 		<table border="1" style="width:600px">
 			<caption>게시판</caption>
@@ -38,5 +39,6 @@
 	</form>	
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+
 </body>
 </html>

@@ -1,10 +1,15 @@
 package devsepark.board.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +20,13 @@ import devsepark.board.common.ShaEncoder;
 import devsepark.board.model.UserVo;
 import devsepark.board.service.UserService;
 
+//유저 컨트롤러
 @Controller
 @RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
-	UserService userService;
+	UserService userService;	//유저 서비스
 	
 	@Resource(name="shaEncoder")
 	private ShaEncoder encoder;
@@ -63,5 +69,13 @@ public class UserController {
 		}
 		
 		return "redirect:/index";
+	}
+	
+	@RequestMapping("/denied")
+	public String denied(Model model, Authentication auth, HttpServletRequest req){
+		AccessDeniedException ade = (AccessDeniedException) req.getAttribute(WebAttributes.ACCESS_DENIED_403);
+		model.addAttribute("auth", auth);
+		model.addAttribute("errorMessage", ade);
+		return "/user/denied";
 	}
 }

@@ -16,13 +16,14 @@
 		
 		<http-basic/>
 	</http>
+	
 	<!-- Web 권한 설정 -->
 	<http pattern="/**" create-session="never" auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/board/*/form" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="permitAll" />
 		<csrf disabled="true"/>
-		<!-- TODO 로그인 실패 AJAX  -->
+		
 		<form-login 
 			username-parameter="login_id"
 			password-parameter="login_password"
@@ -38,7 +39,7 @@
 		<logout delete-cookies="true" logout-success-url="/index" logout-url="/user/logout" invalidate-session="true"/>
 	</http>
 	
-	<!-- Handler -->
+	<!-- Login Handler -->
 	<beans:bean id="userDeniedHandler"
 		class="devsepark.board.service.UserDeniedHandler"/>
 	<beans:bean id="userLoginSuccessHandler"
@@ -46,14 +47,17 @@
 	<beans:bean id="userLoginFailureHandler"
 		class="devsepark.board.service.UserLoginFailureHandler"/>
 	
+	<!-- Sha256 Encoder -->
 	<beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
 		<beans:constructor-arg name="strength" value="256"/>
 	</beans:bean>
 	
+	<!-- 유저 서비스 빈 -->
 	<beans:bean id="userService" class="devsepark.board.service.UserService" autowire="byType">
 		<beans:constructor-arg name="sqlSession" ref="sqlSession"/>
 	</beans:bean>
 	
+	<!-- 인증 매니저에 유저 서비스,sha인코더(유저명으로 salt 처리) 매핑 -->
 	<authentication-manager>
 		<authentication-provider user-service-ref="userService">
 			<password-encoder ref="passwordEncoder">

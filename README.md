@@ -34,6 +34,7 @@ Spring board example. (practice project)
 |POST		|/user/login												|로그인				|
 |POST		|/user/logout												|로그아웃				|
 
+
 ## A List Of Functions
 ------
 |Function	        |Completed |Remark				              |
