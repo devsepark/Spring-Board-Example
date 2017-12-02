@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IT Info - <c:out value="${boardGroup.detailedname}"/></title>
+<title>IT Info - <c:out value="${boardGroup.detailedName}"/></title>
 <link rel="stylesheet" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/header.css">
 </head>
@@ -15,43 +15,45 @@
 <jsp:include page="/WEB-INF/jsp/common/header.jsp" />
   <div class="container">
     <div class="row">
-      <a href="<c:out value="/board/${boardGroup.simplename}"/>" class="btn btn-lg pull-left" role="button">
-	  <c:out value="${boardGroup.detailedname}"/></a>
+      <a href="<c:out value="/board/${boardGroup.simpleName}"/>" class="btn btn-lg pull-left" role="button">
+	  <c:out value="${boardGroup.detailedName}"/></a>
       <!-- 게시판 그룹 글쓰기 권한 확인 -->
-	  <c:if test="${boardGroup.readonly==0}">
-		<a href="<c:out value="/board/${boardGroup.simplename}/form"/>" class="btn btn-success pull-right" role="button">글쓰기</a>
+	  <c:if test="${boardGroup.writable==1}">
+		<a href="<c:out value="/board/${boardGroup.simpleName}/form"/>" class="btn btn-success pull-right" role="button">글쓰기</a>
       </c:if>
     </div>
-    
+    <!-- 번호| 제목 (댓글)| 작성자|조회수|날짜 -->
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
 		  <tr>
-		    <th>번호</th>
-			<th>제목</th>
-			<th>등록자</th>
-			<th>등록일</th>
-			<th>조회수</th>
+		    <th class="col-lg-1 text-center">번호</th>
+			<th class="col-lg-7 text-center">제목</th>
+			<th class="col-lg-2 text-center">작성자</th>
+			<th class="col-lg-1 text-center">조회수</th>
+			<th class="col-lg-1 text-center">등록일</th>
 		  </tr>
 		</thead>
 		<tbody>
-		  <c:forEach var="articleList" items="${articleList}" varStatus="status">
-		    <c:url var="link" value="/board/${boardGroup.simplename}/article/${articleList.id}"/>
+		  <c:forEach var="articleList" items="${articleList}">
+		    <c:url var="link" value="/board/${boardGroup.simpleName}/article/${articleList.id}"/>
 		    <tr>
-			  <td><c:out value="${articleList.id}" /></td>
-			  <td>
-			    <a href="${link}"><c:out value="${articleList.title}" /></a>
+			  <td class="text-center"><c:out value="${articleList.id}" /></td>
+			  <td class="text-left">
+			    <a href="${link}"><c:out value="${articleList.title}" />
+			    	<c:if test="${articleList.commentCount != '0'}">[${articleList.commentCount}]</c:if>
+			    </a>
 			  </td>
-			  <td><c:out value="${articleList.writer}" /></td>
-			  <td><c:out value="${articleList.date}" /></td>
-			  <td><c:out value="${articleList.hit}" /></td>
+			  <td class="text-center"><c:out value="${articleList.writer}" /></td>
+			  <td class="text-center"><c:out value="${articleList.hit}" /></td>
+			  <td class="text-center"><c:out value="${articleList.date}" /></td>
 		    </tr>
 		  </c:forEach>
 		</tbody>
       </table>
     </div>
     <!-- 페이징 폼 -->
-	<form id="paging_form" name="paging_form" method="get" action="<c:out value="/board/${boardGroup.simplename}"/>">
+	<form id="paging_form" name="paging_form" method="get" action="<c:out value="/board/${boardGroup.simpleName}"/>">
 		<!-- 페이징 처리 -->
 		<jsp:include page="/WEB-INF/jsp/common/paging.jsp" />
 	</form>

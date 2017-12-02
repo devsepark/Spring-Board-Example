@@ -2,20 +2,21 @@ package devsepark.board.model;
 
 //게시판 모델 클래스
 public class BoardArticle {
-	private String groupid;		//그룹id
+	private String groupId;		//그룹id
 	private String id;			//게시글id
 	private String title;		//게시글제목
 	private String writer;		//게시글작성자
 	private String content;		//게시글내용
 	private String date;		//게시글작성일자
 	private String hit;			//게시글조회수
-	private String isdeleted;	//게시글삭제여부
+	private String deleted;		//게시글삭제여부
+	private String commentCount;//댓글 수
 	
-	public String getGroupid() {
-		return groupid;
+	public String getGroupId() {
+		return groupId;
 	}
-	public void setGroupid(String groupid) {
-		this.groupid = groupid;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	public String getId() {
 		return id;
@@ -55,10 +56,17 @@ public class BoardArticle {
 	public void setHit(String hit) {
 		this.hit = hit;
 	}
-	public String getIsdeleted() {
-		return isdeleted;
+	
+	public String getDeleted() {
+		return deleted;
 	}
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+	public String getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(String commentCount) {
+		this.commentCount = commentCount;
 	}
 }

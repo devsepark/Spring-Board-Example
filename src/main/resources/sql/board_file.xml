@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="board_file">
+
+	<insert id="insertBoardFile" parameterType="devsepark.board.model.BoardFile" >
+    	INSERT INTO board_file(id, name, storage_name, path, type, size, date)
+		VALUES (#{id}, #{name}, #{storageName}, #{path}, #{type}, #{size}, NOW() )
+	</insert>
+	
+	<select id="selectBoardFileOne" parameterType="String" resultType="devsepark.board.model.BoardFile">
+		SELECT  id, name, storage_name as storageName, path, type, size, date
+		FROM 	board_file
+		WHERE   id=#{value}
+	</select>
+	
+	<select id="selectBoardFileId" parameterType="String" resultType="String">
+		SELECT id
+		FROM   board_file
+		WHERE  storage_name=#{value}
+	</select>
+</mapper>
+

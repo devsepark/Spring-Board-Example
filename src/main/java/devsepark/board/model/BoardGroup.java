@@ -2,13 +2,13 @@ package devsepark.board.model;
 
 public class BoardGroup {
 	private String id;
-	private String simplename;
-	private String detailedname;
+	private String simpleName;
+	private String detailedName;
 	private String parent;
-	private String isdeleted;
-	private String isavailable;
-	private String iscommentable;
-	private String readonly;
+	private String deleted;
+	private String available;
+	private String commentable;
+	private String writable;
 	private String date;
 	
 	public String getId() {
@@ -17,17 +17,17 @@ public class BoardGroup {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getSimplename() {
-		return simplename;
+	public String getSimpleName() {
+		return simpleName;
 	}
-	public void setSimplename(String simplename) {
-		this.simplename = simplename;
+	public void setSimpleName(String simpleName) {
+		this.simpleName = simpleName;
 	}
-	public String getDetailedname() {
-		return detailedname;
+	public String getDetailedName() {
+		return detailedName;
 	}
-	public void setDetailedname(String detailedname) {
-		this.detailedname = detailedname;
+	public void setDetailedName(String detailedName) {
+		this.detailedName = detailedName;
 	}
 	public String getParent() {
 		return parent;
@@ -35,29 +35,29 @@ public class BoardGroup {
 	public void setParent(String parent) {
 		this.parent = parent;
 	}
-	public String getIsdeleted() {
-		return isdeleted;
+	public String getDeleted() {
+		return deleted;
 	}
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
 	}
-	public String getIsavailable() {
-		return isavailable;
+	public String getAvailable() {
+		return available;
 	}
-	public void setIsavailable(String isavailable) {
-		this.isavailable = isavailable;
+	public void setAvailable(String available) {
+		this.available = available;
 	}
-	public String getIscommentable() {
-		return iscommentable;
+	public String getCommentable() {
+		return commentable;
 	}
-	public void setIscommentable(String iscommentable) {
-		this.iscommentable = iscommentable;
+	public void setCommentable(String commentable) {
+		this.commentable = commentable;
 	}
-	public String getReadonly() {
-		return readonly;
+	public String getWritable() {
+		return writable;
 	}
-	public void setReadonly(String readonly) {
-		this.readonly = readonly;
+	public void setWritable(String writable) {
+		this.writable = writable;
 	}
 	public String getDate() {
 		return date;

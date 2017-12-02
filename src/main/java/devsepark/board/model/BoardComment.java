@@ -1,18 +1,19 @@
 package devsepark.board.model;
 
+//댓글 모델
 public class BoardComment {
-	private String articleid;
+	private String articleId;
 	private String id;
 	private String writer;
 	private String content;
 	private String date;
-	private String isdeleted;
+	private String deleted;
 	
-	public String getArticleid() {
-		return articleid;
+	public String getArticleId() {
+		return articleId;
 	}
-	public void setArticleid(String articleid) {
-		this.articleid = articleid;
+	public void setArticleId(String articleId) {
+		this.articleId = articleId;
 	}
 	public String getId() {
 		return id;
@@ -38,10 +39,11 @@ public class BoardComment {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getIsdeleted() {
-		return isdeleted;
+	public String getDeleted() {
+		return deleted;
 	}
-	public void setIsdeleted(String isdeleted) {
-		this.isdeleted = isdeleted;
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
 	}
+	
 }

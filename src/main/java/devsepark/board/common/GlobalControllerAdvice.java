@@ -15,9 +15,8 @@ public class GlobalControllerAdvice {
 	public void getAuthenticationAttribute(Model model, Authentication auth) {
 		if(auth!=null) {
 			UserDetailsVo userDetails = (UserDetailsVo)auth.getPrincipal();
-			model.addAttribute("username", userDetails.getName());
-			model.addAttribute("userid", userDetails.getId());
+			model.addAttribute("userName", userDetails.getName());
+			model.addAttribute("userId", userDetails.getId());
 		}
 	}
-	
 }

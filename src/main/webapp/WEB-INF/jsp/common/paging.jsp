@@ -18,7 +18,7 @@
 		<!-- 시작 페이지부터 마지막페이지까지 1씩 증가하며 반복 -->
 		<c:forEach var="i" begin="${searchVo.startPage}" end="${searchVo.endPage}" step="1" varStatus="status">
             <c:choose>
-            	<%-- i가 현재페이지와 같으면 현재 페이지번호 일반 텍스트로 출력 --%>
+            	<%-- i가 현재페이지와 같으면 현재 페이지번호 액티브로 설정 --%>
                 <c:when test="${i eq searchVo.page}">
                 	<li class="active"><a href="javascript:submitForm(${i});"><c:out value="${i}"/></a></li>
                 </c:when>

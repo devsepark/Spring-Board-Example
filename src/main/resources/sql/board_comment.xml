@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="board_comment">
+
+	<!-- 댓글 입력. -->
+	<insert id="insertBoardComment" parameterType="devsepark.board.model.BoardComment">
+		<selectKey resultType="String" keyProperty="id" order="BEFORE">
+			SELECT IFNULL(MAX(id),0)+1 FROM board_comment
+		</selectKey>
+
+		INSERT INTO board_comment(article_id, id, writer, deleted,
+		content, date)
+		VALUES (#{articleId}, #{id}, #{writer}, 0, #{content}, NOW())
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateBoardComment" parameterType="devsepark.board.model.BoardComment">
+		UPDATE board_comment
+		SET content=#{content}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 댓글 리스트 -->
+    <select id="selectBoardCommentList" resultType="devsepark.board.model.BoardComment" parameterType="String">
+        SELECT article_id as articleId, id, writer, deleted, content, date 
+          FROM board_comment
+         WHERE article_id=#{articleId} AND deleted=0
+         ORDER BY id
+    </select>
+    
+	<!-- 댓글 삭제 -->
+	<update id="deleteBoardComment" parameterType="String"> 
+        UPDATE board_comment
+           SET deleted=1
+         WHERE id=#{id}       
+    </update>
+    
+</mapper>

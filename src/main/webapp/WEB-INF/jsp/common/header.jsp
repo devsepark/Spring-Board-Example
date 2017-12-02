@@ -17,19 +17,19 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-			<li<c:if test="${boardGroup.simplename eq 'qna'}"> class="active"</c:if>><a href="/board/qna">QnA</a></li>
-            <li<c:if test="${boardGroup.simplename eq 'tip'}"> class="active"</c:if>><a href="/board/tip">강좌n팁</a></li>
+			<li<c:if test="${boardGroup.simpleName eq 'qna'}"> class="active"</c:if>><a href="/board/qna">QnA</a></li>
+            <li<c:if test="${boardGroup.simpleName eq 'tip'}"> class="active"</c:if>><a href="/board/tip">강좌n팁</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">커뮤니티 <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li<c:if test="${boardGroup.simplename eq 'community'}"> class="active"</c:if>><a href="/board/community">전체</a></li>
+                <li<c:if test="${boardGroup.simpleName eq 'community'}"> class="active"</c:if>><a href="/board/community">전체</a></li>
                 <li role="separator" class="divider"></li>
-                <li<c:if test="${boardGroup.simplename eq 'notice'}"> class="active"</c:if>><a href="/board/notice">공지사항</a></li>
-                <li<c:if test="${boardGroup.simplename eq 'forum'}"> class="active"</c:if>><a href="/board/forum">포럼</a></li>
-                <li<c:if test="${boardGroup.simplename eq 'free'}"> class="active"</c:if>><a href="/board/free">자유게시판</a></li>
+                <li<c:if test="${boardGroup.simpleName eq 'notice'}"> class="active"</c:if>><a href="/board/notice">공지사항</a></li>
+                <li<c:if test="${boardGroup.simpleName eq 'forum'}"> class="active"</c:if>><a href="/board/forum">포럼</a></li>
+                <li<c:if test="${boardGroup.simpleName eq 'free'}"> class="active"</c:if>><a href="/board/free">자유게시판</a></li>
               </ul>
             </li>
-            <li<c:if test="${boardGroup.simplename eq 'chat'}"> class="active"</c:if>><a href="/chat">채팅</a></li>
+            <li<c:if test="${boardGroup.simpleName eq 'chat'}"> class="active"</c:if>><a href="/chat">채팅</a></li>
           </ul>
 		  <!-- TODO 전체 검색 -->
 		  <form class="navbar-form navbar-left">
@@ -45,7 +45,7 @@
 				<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <c:out value="${username}(${userid})"/></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <c:out value="${userName}(${userId})"/></a></li>
 				<li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			</sec:authorize>
 		  </ul>

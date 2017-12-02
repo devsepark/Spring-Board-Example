@@ -19,34 +19,36 @@ public class BoardCommentController {
 	private BoardCommentService boardCommentService;	//게시판 서비스
 	
 	//댓글 저장
-    @RequestMapping(value = "/{boardname}/article/{articleid}/comment", method = RequestMethod.POST)
+    @RequestMapping(value = "/{boardName}/article/{articleId}/comment", method = RequestMethod.POST)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-    public String boardCommentSave(@PathVariable("boardname") String boardname
-    		, @PathVariable("articleid") String articleid, BoardComment commentVo, Authentication auth) {
+    public String boardCommentSave(@PathVariable("boardName") String boardName
+    		, @PathVariable("articleId") String articleId, BoardComment commentVo, Authentication auth) {
     	
 		UserDetailsVo user = (UserDetailsVo) auth.getPrincipal();
 		commentVo.setWriter(user.getName());
     	boardCommentService.insertBoardComment(commentVo);
     	
     	
-        return "redirect:/board/"+boardname+"/article/"+articleid;
+        return "redirect:/board/"+boardName+"/article/"+articleId;
     }
     //댓글 수정
-    @RequestMapping(value = "/{boardname}/article/{articleid}/comment/{commentid}", method = RequestMethod.PUT)
-    public String boardCommentUpdate(@PathVariable("boardname") String boardname, @PathVariable("articleid") String articleid
-    		, @PathVariable("commentid") String commentid, BoardComment commentVo) {
+    @RequestMapping(value = "/{boardName}/article/{articleId}/comment/{commentId}", method = RequestMethod.PUT)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    public String boardCommentUpdate(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId
+    		, @PathVariable("commentId") String commentId, BoardComment commentVo) {
         
     	boardCommentService.updateBoardComment(commentVo);
     	
-        return "redirect:/board/"+boardname+"/article/"+articleid;
+        return "redirect:/board/"+boardName+"/article/"+articleId;
     }
     //댓글 삭제
-    @RequestMapping(value = "/{boardname}/article/{articleid}/comment/{commentid}", method = RequestMethod.DELETE)
-    public String boardCommentDelete(@PathVariable("boardname") String boardname, @PathVariable("articleid") String articleid
-    		, @PathVariable("commentid") String commentid) {
+    @RequestMapping(value = "/{boardName}/article/{articleId}/comment/{commentId}", method = RequestMethod.DELETE)
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    public String boardCommentDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId
+    		, @PathVariable("commentId") String commentId) {
     	
-    	boardCommentService.deleteBoardComment(commentid);
+    	boardCommentService.deleteBoardComment(commentId);
     	
-    	return "redirect:/board/" + boardname + "/article/" + articleid;
+    	return "redirect:/board/" + boardName + "/article/" + articleId;
     }
 }

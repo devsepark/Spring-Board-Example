@@ -1,23 +1,26 @@
-- 게시판 프론트 부트스트랩 템플릿 적용
-- 글쓰기 에디터 추가
-- 게시글 쓰기 템플릿 적용
-- 게시글 보기 템플릿 적용
-- 인덱스 페이지 부트스트랩 템플릿 적용
+- 게시글 쓰기 디자인
+- 게시글 보기 디자인
+- 로깅 추가
 - 커뮤니티 parent 설정
+- 인덱스 페이지 부트스트랩 템플릿 적용 및 내용 추가
 - 게시글 쓰기, 수정 합칠것
 - 댓글 기능 ajax 적용 (댓글 수정 불가 버그 확인)
-- 로깅 추가
 - 로그인 ajax 적용 (로그인 실패 시, 실패 메시지 출력, 로그인 실패 시 로그인 버튼 사라지는 현상.)
 - 회원가입 ajax 적용
 - 에러 페이지 적용
 
+Naming
+- DB : 언더바(_) 표기 (소문자)
+- JAVA : 카멜케이스
+- myBatis : retultType as를 통해 매핑
 
+- 테스트 설정
+- DB,File 설정 property로
 - 내 정보 기능 (쪽지, 초대, 알림, 회원탈퇴)
 - 관리자 기능 (게시판 관리, 유저목록, 밴, 신고내역)
 - 채팅 메뉴 (채팅방, 채팅목록/초대/검색)
 - (content-type="application/json)json 형식 반환 RestController 추가
 - 삭제된 게시물 주소로 접근시 삭제되었습니다 메시지.
-- 게시판 권한 관리
 - favicon 설정
 - 검색 시, 내용이 없으면 검색된 내용이 없다고 표시.
 - 검색 기능 확장 (드롭박스로)(제목,내용,제목+내용,작성자,댓글)
@@ -49,3 +52,6 @@ default-character-set=utf8
 default-character-set = utf8 
 [mysql]
 default-character-set = utf8
+
+AUTO_INCREMENT 초기화 :
+ALTER TABLE board_file AUTO_INCREMENT=1;

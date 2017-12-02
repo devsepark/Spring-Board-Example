@@ -3,9 +3,10 @@ Spring board example. (practice project)
 
 - Spring 4.2.3
 - Maria DB 10.2.9
+- tomcat 8.0
 - Bootstrap 3.3.7
 - jquery-3.2.1
-- tomcat 8.0
+- summernote 0.8.8
 
 1. create database (src/main/resources/sql/createDb.sql)
 2. database setting (src/main/webapp/WEB-INF/config/context-datasource.xml)
