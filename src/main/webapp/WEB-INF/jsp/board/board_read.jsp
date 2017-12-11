@@ -18,29 +18,26 @@
 	  <table class="table table-hover">
 		<tbody>
 			<tr>
-				<td>작성자</td>
-				<td><c:out value="${boardArticle.writer}" /></td>
+				<td>작성자: <c:out value="${boardArticle.writer}" /></td>
 			</tr>
 			<tr>
-				<td>제목</td>
-				<td><c:out value="${boardArticle.title}" /></td>
+				<td>제목: <c:out value="${boardArticle.title}" /></td>
 			</tr>
 			<tr>
-				<td>내용</td>
 				<td><c:out value="${boardArticle.content}" escapeXml="false" /></td>
 			</tr>
 		</tbody>
 	  </table>
 	</div>
-	<!-- 뒤로가기 -->
-	<a href="<c:out value="/board/${boardGroup.simpleName}"/>">돌아가기</a>
-	<!-- 수정 -->
-	<a href="<c:out value="/board/${boardGroup.simpleName}/article/${boardArticle.id}/form"/>">수정</a>
 	<!-- 삭제 폼 -->
 	<form name="delete_form" action="<c:out value="/board/${boardGroup.simpleName}/article/${boardArticle.id}"/>" method="post">
 		<input type="hidden" name="_method" value="delete"> 
-		<a href="#" onclick="delete_form.submit()">삭제</a>
+		<a href="#" onclick="delete_form.submit()" class="btn btn-primary pull-right" role="button"><span class="glyphicon glyphicon-remove"></span></a>
 	</form>
+	<!-- 수정 -->
+	<a href="<c:out value="/board/${boardGroup.simpleName}/article/${boardArticle.id}/form"/>" class="btn btn-primary pull-right" role="button"><span class="glyphicon glyphicon-pencil"></span></a>
+	<!-- 뒤로가기 -->
+	<button type="button" class="btn btn-primary pull-right" onclick="history.back()"><span class="glyphicon glyphicon-arrow-left"></span></button>
 	<p>&nbsp;</p>
 	<!-- 댓글 폼 -->
 	<div style="border: 1px solid; width: 600px; padding: 5px">

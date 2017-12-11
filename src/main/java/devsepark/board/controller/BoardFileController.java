@@ -22,14 +22,6 @@ public class BoardFileController {
 	@Autowired
 	private BoardFileService boardFileService;
 
-	//	@RequestMapping(value = "")
-	//    public String listUploadedFiles(Model model) throws IOException {
-	//        
-	//        model.addAttribute("files", imageService.loadAll().collect(Collectors.toList()));
-	//        
-	//        return "index";
-	//    }
-
 	@RequestMapping(value = "/image/{imageId}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> replyFile(@PathVariable("imageId") String imageId){
@@ -40,9 +32,11 @@ public class BoardFileController {
 			System.out.println(boardFile.toString());
 			String fileName = boardFile.getName();
 			header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
+			//이미지 타입 확인
 			if (MediaUtil.containsImageMediaType(boardFile.getType())) {
 				header.setContentType(MediaType.valueOf(boardFile.getType()));
 			} else {
+				//이미지 이외는 OCTET_STREAM(기타)
 				header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			}
 			System.out.println("download image");

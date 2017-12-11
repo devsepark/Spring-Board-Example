@@ -24,14 +24,6 @@
 	  <a href="#" onclick="writeFormSubmit()" role="button" class="btn btn-primary pull-right">저장</a>
 	</form>	
   </div>
-  <!--  
-  <div id="imageBoard">
-      <ul>
-        <c:forEach items="${files}" var="file">
-          <li><img src="/image/${file}" width="480" height="auto"/></li>
-        </c:forEach>
-      </ul>
-  </div>-->
 </div><!-- container -->
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>

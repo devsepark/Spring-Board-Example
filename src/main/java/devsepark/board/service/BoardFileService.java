@@ -61,7 +61,7 @@ public class BoardFileService {
 		//return db select by id
 		return sqlSession.selectOne("selectBoardFileOne", fileName);
 	}
-
+	
 	public Resource loadAsResource(String fileName) throws Exception {
 		try {
 			if (fileName.toCharArray()[0] == '/') {
@@ -79,7 +79,7 @@ public class BoardFileService {
 			throw new Exception("Could not read file: " + fileName);
 		}
 	}
-
+	
 	private Path loadPath(String fileName) {
 		return rootLocation.resolve(fileName);
 	}
