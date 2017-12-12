@@ -2,6 +2,8 @@ package devsepark.board.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -25,12 +27,17 @@ import devsepark.board.service.BoardCommentService;
 @Controller
 @RequestMapping("/board")
 public class BoardArticleController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardArticleController.class);
+	
 	@Autowired
 	private BoardArticleService boardArticleService;	//게시판 서비스
 	@Autowired
 	private BoardGroupService boardGroupService;		//게시판 그룹 서비스
 	@Autowired
 	private BoardCommentService boardCommentService;	//게시판 댓글 서비스
+	
+	
 	
 	//리스트 페이지
 	@RequestMapping(value = "/{boardName}", method = RequestMethod.GET )
@@ -50,6 +57,9 @@ public class BoardArticleController {
 		modelMap.addAttribute("articleList", articleList);
 		modelMap.addAttribute("searchVo", searchVo);
 		modelMap.addAttribute("boardGroup", boardGroup);
+		
+		logger.info("Board Article list,URL=/board/{},Method=GET",boardName);
+		
 		return  "/board/board_list";
 	}
 	
@@ -63,6 +73,8 @@ public class BoardArticleController {
 			//TODO return 404error page
 		}
 		modelMap.addAttribute("boardGroup", boardGroup);
+		
+		logger.info("Board Article form,URL=/board/{},Method=GET",boardName);
 		
         return "/board/board_form";
     }
@@ -79,8 +91,9 @@ public class BoardArticleController {
 		board.setGroupId(boardGroup.getId());
 		UserDetailsVo user = (UserDetailsVo) auth.getPrincipal();
 		board.setWriter(user.getName());
-		System.out.println(board.toString());
     	boardArticleService.insertBoard(board);
+    	
+    	logger.info("Board Article Save,URL=/board/{},Method=POST,UserName={},ArticleID={}",boardName,user.getName(),board.getId());
     	
         return "redirect:/board/"+boardName;
     }
@@ -139,6 +152,9 @@ public class BoardArticleController {
     	modelMap.addAttribute("commentList", commentList);
     	//조회수 증가
     	boardArticleService.updateBoardHit(articleId);
+    	
+    	logger.info("Board Article Read,URL=/board/{}/article/{},Method=GET",boardName,articleId);
+    	
         return "/board/board_read";
     }
     
@@ -149,6 +165,8 @@ public class BoardArticleController {
     	
     	boardArticleService.deleteBoardOne(articleId);
         
+    	logger.info("Board Article Delete,URL=/board/{}/article/{},Method=DELETE",boardName,articleId);
+    	
         return "redirect:/board/" + boardName;
     }
 }

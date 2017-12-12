@@ -1,5 +1,7 @@
 package devsepark.board.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,9 +14,11 @@ import devsepark.board.model.BoardGroup;
 @Controller
 public class IndexController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
 	public String index() {
-		
+		logger.info("index page,");
 		return "/index";
 	}
 	

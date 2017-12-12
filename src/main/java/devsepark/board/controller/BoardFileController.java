@@ -1,5 +1,7 @@
 package devsepark.board.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,9 @@ import devsepark.board.service.BoardFileService;
 
 @Controller
 public class BoardFileController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardFileController.class);
+	
 	@Autowired
 	private BoardFileService boardFileService;
 

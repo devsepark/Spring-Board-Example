@@ -2,6 +2,9 @@
 Spring board example. (practice project)
 
 - Spring 4.2.3
+- log4j 2.10.0
+- slf4j 1.7.25
+- MyBatis 3.4.5
 - Maria DB 10.2.9
 - tomcat 8.0
 - Bootstrap 3.3.7

@@ -1,5 +1,7 @@
 package devsepark.board.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -15,6 +17,9 @@ import devsepark.board.service.BoardCommentService;
 @Controller
 @RequestMapping("/board")
 public class BoardCommentController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardCommentController.class);
+	
 	@Autowired
 	private BoardCommentService boardCommentService;	//게시판 서비스
 	
