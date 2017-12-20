@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+	<!-- Appenders -->
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5p[%d{yyyy:MM:dd HH:mm:ss.SSS}][%thread] %msg - (%file:%line)%n" />
+		</Console>
+		
+		<Console name="MapperConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5p[%d{yyyy:MM:dd HH:mm:ss.SSS}][%thread] %msg%n" />
+		</Console>
+	</Appenders>
+
+	<!-- Application Loggers -->
+	<Loggers>
+		<!-- MyBatis Mapper Loggers -->
+		<Logger name="board_article" level="debug" additivity="false">
+			<AppenderRef ref="MapperConsole"/>
+		</Logger>
+		<Logger name="board_comment" level="debug" additivity="false">
+			<AppenderRef ref="MapperConsole"/>
+		</Logger>
+		<Logger name="board_file" level="debug" additivity="false">
+			<AppenderRef ref="MapperConsole"/>
+		</Logger>
+		<Logger name="board_group" level="debug" additivity="false">
+			<AppenderRef ref="MapperConsole"/>
+		</Logger>
+		<Logger name="user" level="debug" additivity="false">
+			<AppenderRef ref="MapperConsole"/>
+		</Logger>
+		
+		<!-- 3rdparty Loggers -->
+		<Logger name="org.springframework.core" level="info" />
+		<Logger name="org.springframework.baens" level="info" />
+		<Logger name="org.springframework.context" level="info" />
+		<Logger name="org.springframework.web" level="info" />
+
+		<Root level="info">
+			<AppenderRef ref="Console" />
+		</Root>
+
+	</Loggers>
+</Configuration>
