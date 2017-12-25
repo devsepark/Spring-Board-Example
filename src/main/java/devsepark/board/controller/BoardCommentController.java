@@ -33,6 +33,7 @@ public class BoardCommentController {
 		commentVo.setWriter(user.getName());
     	boardCommentService.insertBoardComment(commentVo);
     	
+    	logger.info("Board Comment Save,URL=/board/{}/article/{}/comment,Method=POST",boardName,articleId);
     	
         return "redirect:/board/"+boardName+"/article/"+articleId;
     }
@@ -44,6 +45,8 @@ public class BoardCommentController {
         
     	boardCommentService.updateBoardComment(commentVo);
     	
+    	logger.info("Board Comment Update,URL=/board/{}/article/{}/comment/{},Method=PUT",boardName,articleId, commentId);
+    	
         return "redirect:/board/"+boardName+"/article/"+articleId;
     }
     //댓글 삭제
@@ -53,6 +56,8 @@ public class BoardCommentController {
     		, @PathVariable("commentId") String commentId) {
     	
     	boardCommentService.deleteBoardComment(commentId);
+    	
+    	logger.info("Board Comment Delete,URL=/board/{}/article/{}/comment/{},Method=DELETE",boardName,articleId,commentId);
     	
     	return "redirect:/board/" + boardName + "/article/" + articleId;
     }

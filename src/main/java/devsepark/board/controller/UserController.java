@@ -2,7 +2,6 @@ package devsepark.board.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +37,10 @@ public class UserController {
 	// 회원가입 페이지
 	@RequestMapping(value = "/regist", method=RequestMethod.GET)
 	public String userRegistForm(ModelMap modelMap) {
-		modelMap.addAttribute("regist", "true");
+		modelMap.addAttribute("needregist", "true");
+		
+		logger.info("User Regist Form, URL=/regist,Method=GET");
+		
 		return "/index";
 	}
 	
@@ -48,6 +50,8 @@ public class UserController {
 		user.setPassword(encoder.saltEncoding(user.getPassword(), user.getId()));
 		userService.insertUser(user);
 		
+		logger.info("User Regist : {}, URL=/regist,Method=POST", user.getId());
+		
 		return "/index";
 	}
 	
@@ -55,11 +59,17 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String userLoginForm(ModelMap modelMap) {
 		modelMap.addAttribute("needlogin", "true");
+		
+		logger.info("Login Page : {}, URL=/login,Method=GET");
+		
 		return "/index";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String userLogin() {
+		
+		
+		
 		return "/index";
 	}
 	
