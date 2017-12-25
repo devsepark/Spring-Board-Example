@@ -68,7 +68,7 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String userLogin() {
 		
-		
+		logger.info("Login : {}, URL=/login,Method=POST");
 		
 		return "/index";
 	}

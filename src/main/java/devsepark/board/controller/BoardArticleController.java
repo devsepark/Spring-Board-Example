@@ -66,7 +66,7 @@ public class BoardArticleController {
 	//글쓰기 폼 페이지
     @RequestMapping(value = "/{boardName}/form", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardArticleForm(@PathVariable("boardName") String boardName, ModelMap modelMap) {
+   	public String boardArticleWriteForm(@PathVariable("boardName") String boardName, ModelMap modelMap) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
 		if(boardGroup == null) {
@@ -74,7 +74,7 @@ public class BoardArticleController {
 		}
 		modelMap.addAttribute("boardGroup", boardGroup);
 		
-		logger.info("Board Article form,URL=/board/{},Method=GET",boardName);
+		logger.info("Board Article Write form,URL=/board/{},Method=GET",boardName);
 		
         return "/board/board_form";
     }
