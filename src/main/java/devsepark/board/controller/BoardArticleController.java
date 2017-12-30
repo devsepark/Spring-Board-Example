@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,7 +19,6 @@ import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardArticle;
 import devsepark.board.model.BoardComment;
 import devsepark.board.model.BoardGroup;
-import devsepark.board.model.UserDetailsVo;
 import devsepark.board.service.BoardGroupService;
 import devsepark.board.service.BoardArticleService;
 import devsepark.board.service.BoardCommentService;
@@ -41,7 +41,7 @@ public class BoardArticleController {
 	
 	//리스트 페이지
 	@RequestMapping(value = "/{boardName}", method = RequestMethod.GET )
-	public String boardArticleList(@PathVariable("boardName") String boardName, SearchVo searchVo, ModelMap modelMap) {
+	public String articleList(@PathVariable("boardName") String boardName, SearchVo searchVo, ModelMap modelMap) {
 		
 		BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
 		if(boardGroup == null) {
@@ -66,7 +66,7 @@ public class BoardArticleController {
 	//글쓰기 폼 페이지
     @RequestMapping(value = "/{boardName}/form", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardArticleWriteForm(@PathVariable("boardName") String boardName, ModelMap modelMap) {
+   	public String articleWriteForm(@PathVariable("boardName") String boardName, ModelMap modelMap) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
 		if(boardGroup == null) {
@@ -82,18 +82,18 @@ public class BoardArticleController {
     //글 저장, ModelAttribute로 게시판 객체를 받아 DB에 삽입.
     @RequestMapping(value = "/{boardName}", method = RequestMethod.POST)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardArticleSave(@PathVariable("boardName") String boardName, @ModelAttribute BoardArticle board, Authentication auth) {
+   	public String articleSave(@PathVariable("boardName") String boardName, @ModelAttribute BoardArticle board, Authentication auth) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
 		board.setGroupId(boardGroup.getId());
-		UserDetailsVo user = (UserDetailsVo) auth.getPrincipal();
-		board.setWriter(user.getName());
+		UserDetails user = (UserDetails) auth.getPrincipal();
+		board.setWriter(user.getUsername());
     	boardArticleService.insertBoard(board);
     	
-    	logger.info("Board Article Save,URL=/board/{},Method=POST,UserName={},ArticleID={}",boardName,user.getName(),board.getId());
+    	logger.info("Board Article Save,URL=/board/{},Method=POST,UserName={},ArticleID={}",boardName,user.getUsername(),board.getId());
     	
         return "redirect:/board/"+boardName;
     }
@@ -101,7 +101,7 @@ public class BoardArticleController {
     //글 수정 페이지
     @RequestMapping(value = "/{boardName}/article/{articleId}/form", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardUpdateForm(@PathVariable("boardName") String boardName
+   	public String articleUpdateForm(@PathVariable("boardName") String boardName
    			, @PathVariable("articleId") String articleId, ModelMap modelMap) {
     	
     	BoardArticle article = boardArticleService.selectBoardOne(articleId);
@@ -122,7 +122,7 @@ public class BoardArticleController {
     //글 수정 저장
     @RequestMapping(value = "/{boardName}/article/{articleId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardUpdateSave(@PathVariable("boardName") String boardName
+   	public String articleUpdateSave(@PathVariable("boardName") String boardName
    			, @PathVariable("articleId") String articleId, @ModelAttribute BoardArticle article) {
     	
     	boardArticleService.updateBoard(article);
@@ -132,7 +132,7 @@ public class BoardArticleController {
 
     //글 읽기 페이지, 게시판과 게시글 ID를 Path에서 받아 게시글을 조회.
     @RequestMapping(value = "/{boardName}/article/{articleId}", method = RequestMethod.GET)
-   	public String boardRead(@PathVariable("boardName") String boardName
+   	public String articleRead(@PathVariable("boardName") String boardName
    			, @PathVariable("articleId") String articleId, ModelMap modelMap) {
     	
     	BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
@@ -161,7 +161,7 @@ public class BoardArticleController {
     //글 삭제
     @RequestMapping(value = "/{boardName}/article/{articleId}", method = RequestMethod.DELETE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String boardDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId) {
+   	public String articleDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId) {
     	
     	boardArticleService.deleteBoardOne(articleId);
         

@@ -77,7 +77,7 @@
 	$(document).ready(function(){
 		if('<c:out value="${param.needlogin}"/>'=='true'||'<c:out value="${needlogin}"/>'=='true'){
 			$('#login-modal').modal('show');
-		} else ('<c:out value="${needregist}"/>'=='true'){
+		} else if ('<c:out value="${needregist}"/>'=='true'){
 			$('#regist-modal').modal('show');
 		}
 		

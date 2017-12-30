@@ -45,7 +45,7 @@
 				<li><a href="#" data-toggle="modal" data-target="#login-modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <c:out value="${userName}(${userId})"/></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <sec:authentication property="principal.username"/></a></li>
 				<li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 			</sec:authorize>
 		  </ul>

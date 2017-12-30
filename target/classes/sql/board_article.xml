@@ -49,7 +49,6 @@
 		UPDATE board_article
 		SET
 		title=#{title}
-		, writer=#{writer}
 		, content=#{content}
 		WHERE id=#{id}
 		AND

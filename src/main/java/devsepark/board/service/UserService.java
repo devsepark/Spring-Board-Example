@@ -41,7 +41,6 @@ public class UserService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		Map<String, Object> user = sqlSession.selectOne("selectUserOne",username);
-		System.out.println(sqlSession.toString());
 		if(user == null ) throw new UsernameNotFoundException(username);
 		List<GrantedAuthority> grantedAuthList = new ArrayList<GrantedAuthority>();
 		grantedAuthList.add(new SimpleGrantedAuthority(user.get("authority").toString().toUpperCase()));
