@@ -58,7 +58,7 @@
 	    <div class="loginmodal-container">
 		  <h1>Login to Your Account</h1><br>
 		  <form name="login_form" action='<c:url value="/user/login"/>' method="post" onsubmit="return loginFormSubmit();">
-		    <input type="text" id="login_id" name="login_id" placeholder="Username">
+		    <input type="text" id="login_id" name="login_id" placeholder="UserID">
 			<input type="password" id="login_password" name="login_password" placeholder="Password">
 			<input type="submit" id="login_button" name="login_button" class="login loginmodal-submit" value="Login">
 		  </form>

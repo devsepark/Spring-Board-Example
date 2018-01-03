@@ -4,6 +4,9 @@
 <mapper namespace="board_file">
 
 	<insert id="insertBoardFile" parameterType="devsepark.board.model.BoardFile" >
+		<selectKey resultType="String" keyProperty="id" order="BEFORE">
+            SELECT IFNULL(MAX(id),0)+1 FROM board_file
+        </selectKey>
     	INSERT INTO board_file(id, name, storage_name, path, type, size, date)
 		VALUES (#{id}, #{name}, #{storageName}, #{path}, #{type}, #{size}, NOW() )
 	</insert>

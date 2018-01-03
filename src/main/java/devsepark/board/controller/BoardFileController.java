@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +37,13 @@ public class BoardFileController {
 			HttpHeaders header = new HttpHeaders();
 			String fileName = boardFile.getName();
 			header.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"");
-			//이미지 타입 확인
+			
 			if (MediaUtil.containsImageMediaType(boardFile.getType())) {
 				header.setContentType(MediaType.valueOf(boardFile.getType()));
 			} else {
 				//이미지 이외는 OCTET_STREAM(기타)
-				//header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-				//return error
+				header.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			}
-			
 			Resource resource = boardFileService.loadAsResource(boardFile.getStorageName());
 			
 			logger.info("downloadImage, URL=/image/{},Method=GET",imageId);
@@ -58,9 +58,16 @@ public class BoardFileController {
 	}
 
 	@RequestMapping(value = "/image", method = RequestMethod.POST)
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@ResponseBody
 	public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file){
 		try {
+			
+			//이미지 타입 확인
+			if (!MediaUtil.containsImageMediaType(file.getContentType())) {
+				//이미지 이외는 415 unsupported media type
+				return new ResponseEntity<Object>(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			}
 			
 			BoardFile uploadedFile = boardFileService.store(file);
 			
@@ -72,5 +79,4 @@ public class BoardFileController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-
 }

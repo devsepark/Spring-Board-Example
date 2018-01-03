@@ -12,7 +12,7 @@ public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	
 	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
-	public String index() {
+	public String indexPage() {
 		
 		logger.info("Index Page, URL=/index,Method=GET");
 		
