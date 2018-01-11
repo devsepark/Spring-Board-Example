@@ -50,9 +50,9 @@ public class BoardArticleController {
 		}
 		searchVo.setGroupId(boardGroup.getId());
 		//페이징 처리
-		searchVo.pageCalculate(boardArticleService.selectBoardCount(searchVo)); 
+		searchVo.pageCalculate(boardArticleService.selectArticleCount(searchVo)); 
 		//보여지는 페이지만큼 게시글 셀렉트
-		List<BoardArticle> articleList = boardArticleService.selectBoardList(searchVo);
+		List<BoardArticle> articleList = boardArticleService.selectArticleList(searchVo);
 		//JSP로 전달
 		modelMap.addAttribute("articleList", articleList);
 		modelMap.addAttribute("searchVo", searchVo);
@@ -91,7 +91,7 @@ public class BoardArticleController {
 		board.setGroupId(boardGroup.getId());
 		UserDetails user = (UserDetails) auth.getPrincipal();
 		board.setWriter(user.getUsername());
-    	boardArticleService.insertBoard(board);
+    	boardArticleService.insertArticle(board);
     	
     	logger.info("Board Article Save,URL=/board/{},Method=POST,UserName={},ArticleID={}",boardName,user.getUsername(),board.getId());
     	
@@ -104,7 +104,7 @@ public class BoardArticleController {
    	public String articleUpdateForm(@PathVariable("boardName") String boardName
    			, @PathVariable("articleId") String articleId, ModelMap modelMap) {
     	
-    	BoardArticle article = boardArticleService.selectBoardOne(articleId);
+    	BoardArticle article = boardArticleService.selectArticleOne(articleId);
         if(article == null) {
         	//TODO return 404error page.
         }
@@ -125,7 +125,7 @@ public class BoardArticleController {
    	public String articleUpdateSave(@PathVariable("boardName") String boardName
    			, @PathVariable("articleId") String articleId, @ModelAttribute BoardArticle article) {
     	
-    	boardArticleService.updateBoard(article);
+    	boardArticleService.updateArticle(article);
     	
         return "redirect:/board/"+boardName+"/article/"+articleId;
     }
@@ -140,7 +140,7 @@ public class BoardArticleController {
 			//TODO return 404error page
 		}
 		
-    	BoardArticle article = boardArticleService.selectBoardOne(articleId);
+    	BoardArticle article = boardArticleService.selectArticleOne(articleId);
     	if(article == null) {
     		//TODO return 404error page
     	}
@@ -151,7 +151,7 @@ public class BoardArticleController {
     	modelMap.addAttribute("boardGroup", boardGroup);
     	modelMap.addAttribute("commentList", commentList);
     	//조회수 증가
-    	boardArticleService.updateBoardHit(articleId);
+    	boardArticleService.updateArticleHit(articleId);
     	
     	logger.info("Board Article Read,URL=/board/{}/article/{},Method=GET",boardName,articleId);
     	
@@ -163,7 +163,7 @@ public class BoardArticleController {
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
    	public String articleDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId) {
     	
-    	boardArticleService.deleteBoardOne(articleId);
+    	boardArticleService.deleteArticleOne(articleId);
         
     	logger.info("Board Article Delete,URL=/board/{}/article/{},Method=DELETE",boardName,articleId);
     	

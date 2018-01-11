@@ -16,31 +16,31 @@ public class BoardArticleService {
 	private SqlSessionTemplate sqlSession;
 	
 	//게시글 목록.
-	public List<BoardArticle> selectBoardList(SearchVo param) {
-		return sqlSession.selectList("selectBoardList", param);
+	public List<BoardArticle> selectArticleList(SearchVo param) {
+		return sqlSession.selectList("selectArticleList", param);
 	}
 	//게시글 생성.
-	public void insertBoard(BoardArticle param) {
-		sqlSession.insert("insertBoard", param);
+	public void insertArticle(BoardArticle param) {
+		sqlSession.insert("insertArticle", param);
 	}
 	//게시글 수정
-	public void updateBoard(BoardArticle param) {
-		sqlSession.update("updateBoard", param);
+	public void updateArticle(BoardArticle param) {
+		sqlSession.update("updateArticle", param);
 	}
 	//게시글 읽기
-	public BoardArticle selectBoardOne(String param) {
-		return sqlSession.selectOne("selectBoardOne", param);
+	public BoardArticle selectArticleOne(String param) {
+		return sqlSession.selectOne("selectArticleOne", param);
 	}
 	//게시글 삭제
-	public void deleteBoardOne(String param) {
-		sqlSession.delete("deleteBoardOne", param);
+	public void deleteArticleOne(String param) {
+		sqlSession.delete("deleteArticleOne", param);
 	}
 	//조회수 1증가
-	public void updateBoardHit(String param) {
-		sqlSession.update("updateBoardHit", param);
+	public void updateArticleHit(String param) {
+		sqlSession.update("updateArticleHit", param);
 	}
 	//전체 게시글 개수
-	public Integer selectBoardCount(SearchVo param) {
-		return sqlSession.selectOne("selectBoardCount", param);
+	public Integer selectArticleCount(SearchVo param) {
+		return sqlSession.selectOne("selectArticleCount", param);
 	}
 }
