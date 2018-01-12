@@ -12,6 +12,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import devsepark.board.common.MediaUtil;
 import devsepark.board.common.UploadFileUtil;
 import devsepark.board.model.BoardFile;
 
@@ -22,12 +23,17 @@ public class BoardFileService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	
 	//파일 저장 및 insert
-	public BoardFile store(MultipartFile file) throws Exception {
+	public BoardFile fileStore(MultipartFile file) throws Exception {
 		try {
 			if (file.isEmpty()) {
 				throw new Exception("Failed to store empty file " + file.getOriginalFilename());
+			}
+			
+			//이미지 타입 확인
+			if (!MediaUtil.containsImageMediaType(file.getContentType())) {
+				//이미지 이외는 415 unsupported media type
+				return null;
 			}
 
 			String saveFileName = UploadFileUtil.fileSave(rootLocation.toString(), file);
@@ -54,8 +60,7 @@ public class BoardFileService {
 	}
 	
 	public BoardFile selectBoardFileOne(String fileName) {
-		System.out.println(fileName);
-		//return db select by id
+		//return BoardFile Object select by id
 		return sqlSession.selectOne("selectBoardFileOne", fileName);
 	}
 	

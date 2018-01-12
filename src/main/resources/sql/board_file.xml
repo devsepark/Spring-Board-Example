@@ -14,7 +14,7 @@
 	<select id="selectBoardFileOne" parameterType="String" resultType="devsepark.board.model.BoardFile">
 		SELECT  id, name, storage_name as storageName, path, type, size, date
 		FROM 	board_file
-		WHERE   id=#{value}
+		WHERE   id=#{id}
 	</select>
 	
 	<select id="selectBoardFileId" parameterType="String" resultType="String">

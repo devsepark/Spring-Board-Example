@@ -4,6 +4,7 @@ package devsepark.board.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -11,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -31,6 +31,7 @@ public class BoardArticleServiceTests {
 	private BoardArticleService articleService;
 	
 	private BoardArticle article;
+	private SearchVo search;
 	
 	@Before
 	public void setUp() {
@@ -39,27 +40,113 @@ public class BoardArticleServiceTests {
 		article.setTitle("TestTitle");
 		article.setContent("TestContent");
 		article.setGroupId("1");
+		
+		search = new SearchVo();
+		search.pageCalculate(10);
+		search.setGroupId("1");
 	}
 	
 	@Test
-	@WithMockUser
 	@Transactional
-	public void selectBoardListTest() {
-		
-		SearchVo searchVo = new SearchVo();
-		searchVo.pageCalculate(10);
-		searchVo.setGroupId("1");
+	public void selectArticleListTest() {
 		
 		for(int i=0; i<10; i++) {
 			articleService.insertArticle(article);
 		}
 		
-		List<BoardArticle> articleList = articleService.selectArticleList(searchVo);
+		List<BoardArticle> articleList = articleService.selectArticleList(search);
 		assertNotNull("failure, service is null!", articleService);
 		assertNotNull("article list is null!", articleList);
 		assertEquals(10, articleList.size());
-		assertEquals("TestTitle", articleList.get(0).getTitle());
+		assertEquals(article.getTitle(), articleList.get(0).getTitle());
 	}
 	
+	@Test
+	@Transactional
+	public void insertArticleTest() {
+		long count = articleService.selectArticleCount(search);
+		
+		articleService.insertArticle(article);
+		
+		long afterInsertCount = articleService.selectArticleCount(search);
+		
+		BoardArticle InsertedArticle = articleService.selectRecentArticle();
+		
+		assertEquals(count + 1, afterInsertCount);
+		assertEquals(article.getTitle(), InsertedArticle.getTitle());
+	}
 	
+	@Test
+	@Transactional
+	public void updateArticleTest() {
+		articleService.insertArticle(article);
+		String targetId = articleService.selectRecentArticle().getId();
+		
+		BoardArticle updateArticle = new BoardArticle();
+		updateArticle.setId(targetId);
+		updateArticle.setTitle("UpdateTestTitle");
+		updateArticle.setContent("UpdateTestContent");
+		
+		articleService.updateArticle(updateArticle);
+		
+		BoardArticle afterUpdateArticle = articleService.selectRecentArticle();
+		
+		assertEquals(updateArticle.getTitle(), afterUpdateArticle.getTitle());
+	}
+	
+	@Test
+	@Transactional
+	public void selectArticleOneTest() {
+		articleService.insertArticle(article);
+		
+		BoardArticle selectedArtice = articleService.selectArticleOne(articleService.selectRecentArticle().getId());
+		
+		assertEquals(article.getTitle(), selectedArtice.getTitle());
+	}
+	
+	@Test
+	@Transactional
+	public void deleteArticleOne() {
+		articleService.insertArticle(article);
+		
+		String targetId = articleService.selectRecentArticle().getId();
+		
+		articleService.deleteArticleOne(targetId);
+		
+		assertNull("article is not deleted", articleService.selectArticleOne(targetId));
+	}
+	
+	@Test
+	@Transactional
+	public void updateArticleHitTest() {
+		articleService.insertArticle(article);
+		
+		String targetId = articleService.selectRecentArticle().getId();
+		
+		articleService.updateArticleHit(targetId);
+		
+		assertEquals("1", articleService.selectArticleOne(targetId).getHit());
+	}
+	
+	@Test
+	@Transactional
+	public void selectArticleCountTest() {
+		long count = articleService.selectArticleCount(search);
+		
+		articleService.insertArticle(article);
+		
+		long afterInsertCount = articleService.selectArticleCount(search);
+		
+		assertEquals(count + 1, afterInsertCount);
+	}
+	
+	@Test
+	@Transactional
+	public void selectRecentArticleTest() {
+		articleService.insertArticle(article);
+		
+		BoardArticle recentArticle = articleService.selectRecentArticle();
+		
+		assertEquals(article.getTitle(), recentArticle.getTitle());
+	}
 }

@@ -59,5 +59,4 @@ public class BoardFileControllerTest {
 		.andExpect(status().is(415));
 	}
 	
-	
 }

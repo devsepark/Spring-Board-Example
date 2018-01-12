@@ -45,7 +45,6 @@ public class BoardArticleController {
 		
 		BoardGroup boardGroup = boardGroupService.selectBoardGroupOne(boardName);
 		if(boardGroup == null) {
-			System.out.println("boardId : " + boardName);
 			//TODO return 404error page
 		}
 		searchVo.setGroupId(boardGroup.getId());

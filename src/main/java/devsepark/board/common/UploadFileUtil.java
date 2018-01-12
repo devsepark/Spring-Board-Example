@@ -64,7 +64,7 @@ public class UploadFileUtil {
 	//폴더 생성
 	private static void makeDir(String uploadPath, String... paths) {
 
-		System.out.println(paths[paths.length - 1] + " : " + new File(paths[paths.length - 1]).exists());
+//		System.out.println(paths[paths.length - 1] + " : " + new File(paths[paths.length - 1]).exists());
 		//일일 폴더가 존재할 경우, 리턴
 		if (new File(paths[paths.length - 1]).exists()) {
 			return;

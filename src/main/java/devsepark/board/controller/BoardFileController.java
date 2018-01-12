@@ -63,17 +63,15 @@ public class BoardFileController {
 	public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file){
 		try {
 			
-			//이미지 타입 확인
-			if (!MediaUtil.containsImageMediaType(file.getContentType())) {
-				//이미지 이외는 415 unsupported media type
+			BoardFile uploadedFile = boardFileService.fileStore(file);
+			
+			if (uploadedFile == null) {
 				return new ResponseEntity<Object>(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+			} else {
+				logger.info("Upload Image, URL=/image/,Method=POST", uploadedFile.getName());
+				return ResponseEntity.ok().body("/image/" + uploadedFile.getId());
 			}
 			
-			BoardFile uploadedFile = boardFileService.store(file);
-			
-			logger.info("Upload Image, URL=/image/,Method=POST", uploadedFile.getName());
-			
-			return ResponseEntity.ok().body("/image/" + uploadedFile.getId());
 		}catch (Exception e) {
 			logger.error("Image Upload error : msg={}", e.getMessage());
 			return ResponseEntity.badRequest().build();

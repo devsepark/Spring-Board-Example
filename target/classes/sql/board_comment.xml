@@ -29,6 +29,12 @@
          ORDER BY id
     </select>
     
+    <!-- 댓글 가져오기 -->
+    <select id="selectBoardCommentOne" resultType="devsepark.board.model.BoardComment" parameterType="String">
+        SELECT article_id as articleId, id, writer, deleted, content, date 
+          FROM board_comment
+         WHERE id=#{id} AND deleted=0
+    </select>
 	<!-- 댓글 삭제 -->
 	<update id="deleteBoardComment" parameterType="String"> 
         UPDATE board_comment

@@ -44,7 +44,6 @@ public class UserService implements UserDetailsService{
 		if(user == null ) throw new UsernameNotFoundException(username);
 		List<GrantedAuthority> grantedAuthList = new ArrayList<GrantedAuthority>();
 		grantedAuthList.add(new SimpleGrantedAuthority(user.get("authority").toString().toUpperCase()));
-		System.out.println(grantedAuthList.get(0).toString());
 		return new UserDetailsVo(user.get("username").toString(), 
 				user.get("password").toString(), 
 				user.get("enabled").equals(true), 

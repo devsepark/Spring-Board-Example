@@ -4,7 +4,7 @@
 <mapper namespace="board_article">
 
 	<!-- 게시판, 삭제여부, 검색 조건 -->
-	<sql id="includeBoard">
+	<sql id="includeBoardCriteria">
 		WHERE group_id=#{groupId} AND deleted=0
 		<if test="searchKeyword!=null and searchKeyword!='' and searchTypeArray!=null and searchTypeArray!=''">
 			AND
@@ -14,13 +14,21 @@
 			</foreach>
 		</if>
 	</sql>
+	
+	<!-- 게시판 댓글 수 -->
+	<sql id="includeArticleCommentCount">
+		SELECT count(if(board_article.id=board_comment.article_id,1,null)) 
+		FROM board_comment 
+		WHERE board_comment.deleted=0
+	</sql>
+	
 	<!-- 게시판 리스트 (검색 조건을 포함)(댓글 수)-->
 	<select id="selectArticleList" resultType="devsepark.board.model.BoardArticle" parameterType="devsepark.board.common.SearchVo">
 		SELECT id, title, writer, date_format(date,'%Y-%m-%d') date, hit,
-			(select count(if(board_article.id=board_comment.article_id,1,null)) from board_comment where board_comment.deleted=0) as commentCount
+			(<include refid="includeArticleCommentCount" />) as commentCount
 		FROM
 		board_article
-		<include refid="includeBoard" />
+		<include refid="includeBoardCriteria" />
 		ORDER BY id DESC
 		LIMIT ${rowStart - 1}, ${displayRowCount}
 	</select>
@@ -29,7 +37,7 @@
 	<select id="selectArticleCount" resultType="Integer" parameterType="devsepark.board.common.SearchVo">
 		SELECT COUNT(*)
 		FROM board_article
-		<include refid="includeBoard" />
+		<include refid="includeBoardCriteria" />
 	</select>
 	
 	<!-- 게시글 생성 -->
@@ -65,7 +73,7 @@
 	
 	<!-- 게시글 읽기 -->
 	<select id="selectArticleOne" parameterType="String" resultType="devsepark.board.model.BoardArticle">
-		SELECT group_id as groupId, id, title, writer, content,
+		SELECT group_id as groupId, id, title, writer, content, hit,
 		DATE_FORMAT(date,'%Y-%m-%d') date
 		FROM board_article
 		WHERE id=#{id}
@@ -81,5 +89,12 @@
 		WHERE id=#{id}
 	</delete>
 	
+	<!-- 최신 게시글 가져오기 -->
+	<select id="selectRecentArticle" resultType="devsepark.board.model.BoardArticle">
+		SELECT group_id as groupId, id, title, writer, content, date, hit, deleted
+		FROM board_article
+		order by id DESC
+		LIMIT 1
+	</select>
 </mapper>
 

@@ -15,19 +15,23 @@ public class BoardCommentService {
 	private SqlSessionTemplate sqlSession;
 
 	//댓글 저장
-	public void insertBoardComment(BoardComment param) {
-		sqlSession.insert("insertBoardComment", param);
+	public void insertBoardComment(BoardComment boardComment) {
+		sqlSession.insert("insertBoardComment", boardComment);
 	}
 	//댓글 수정
-	public void updateBoardComment(BoardComment param) {
-		sqlSession.update("updateBoardComment", param);
+	public void updateBoardComment(BoardComment boardComment) {
+		sqlSession.update("updateBoardComment", boardComment);
 	}
 	//댓글 읽기
-	public List<BoardComment> selectBoardCommentList(String param) {
-		return sqlSession.selectList("selectBoardCommentList", param);
+	public List<BoardComment> selectBoardCommentList(String id) {
+		return sqlSession.selectList("selectBoardCommentList", id);
 	}
 	//댓글 삭제
-	public void deleteBoardComment(String param) {
-		sqlSession.delete("deleteBoardComment", param);
-	}    
+	public void deleteBoardComment(String id) {
+		sqlSession.delete("deleteBoardComment", id);
+	}
+	//댓글 하나 읽기
+	public BoardComment selectBoardCommentOne(String id) {
+		return sqlSession.selectOne("selectBoardCommentOne", id);
+	}
 }
