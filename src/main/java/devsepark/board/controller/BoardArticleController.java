@@ -47,7 +47,14 @@ public class BoardArticleController {
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
-		searchVo.setGroupId(boardGroup.getId());
+		
+		String groupArray = boardGroup.getId();
+		
+		if(!boardGroup.getChild().equals("0")) {
+			groupArray += "," + boardGroup.getChild();
+		}
+		
+		searchVo.setGroupIdArray(groupArray.split(","));
 		//페이징 처리
 		searchVo.pageCalculate(boardArticleService.selectArticleCount(searchVo)); 
 		//보여지는 페이지만큼 게시글 셀렉트

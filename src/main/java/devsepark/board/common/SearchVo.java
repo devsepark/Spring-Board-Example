@@ -2,16 +2,17 @@ package devsepark.board.common;
 
 //검색 처리를 위한 모델 클래스
 public class SearchVo extends PageVo{
-	private String groupId;							// 게시판 그룹 id
+	private String[] groupIdArray;					// 게시판 그룹 id
 	private String searchKeyword = "";           	// 검색 키워드
 	private String searchType = "";					// 검색 필드: 제목, 내용 
 	private String[] searchTypeArray;               // 검색 필드를 배열로 변환
 
-	public String getGroupId() {
-		return groupId;
+	
+	public String[] getGroupIdArray() {
+		return groupIdArray;
 	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+	public void setGroupIdArray(String[] groupIdArray) {
+		this.groupIdArray = groupIdArray;
 	}
 	public String getSearchKeyword() {
 		return searchKeyword;

@@ -5,7 +5,7 @@
 
 	<!-- 게시판 그룹 읽어오기 -->
 	<select id="selectBoardGroupOne" parameterType="String" resultType="devsepark.board.model.BoardGroup">
-        SELECT id, simple_name as simpleName, detailed_name as detailedName, available, commentable, writable
+        SELECT id, simple_name as simpleName, detailed_name as detailedName, child, available, commentable, writable
           FROM board_group
          WHERE deleted=0 AND simple_name=#{simpleName} 
     </select> 

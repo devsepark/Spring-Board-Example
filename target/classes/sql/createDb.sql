@@ -39,7 +39,7 @@ CREATE TABLE `board_group` (						#게시판 그룹 테이블
 	`id` INT(11) NOT NULL AUTO_INCREMENT,			#게시판 그룹 id (1~)
 	`simple_name` VARCHAR(20) NOT NULL,				#게시판 그룹 명 (ex:tip)
 	`detailed_name` VARCHAR(20) NULL DEFAULT NULL,	#게시판 그룹 명 (팁n강의 게시판)
-	`parent` INT(11) NULL DEFAULT NULL,				#부모 게시판 id
+	`child` varchar(50) NULL DEFAULT NULL,			#자식 게시판 id
 	`deleted` TINYINT(1) NULL DEFAULT NULL,			#삭제여부 0:삭제안함 1:삭제됨
 	`available` TINYINT(1) NULL DEFAULT NULL,		#가능여부 0:불가능 1:가능
 	`commentable` TINYINT(1) NULL DEFAULT NULL,		#댓글가능여부 0:불가능 1:가능

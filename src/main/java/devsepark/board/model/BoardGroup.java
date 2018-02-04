@@ -4,7 +4,7 @@ public class BoardGroup {
 	private String id;
 	private String simpleName;
 	private String detailedName;
-	private String parent;
+	private String child;
 	private String deleted;
 	private String available;
 	private String commentable;
@@ -29,14 +29,14 @@ public class BoardGroup {
 	public void setDetailedName(String detailedName) {
 		this.detailedName = detailedName;
 	}
-	public String getParent() {
-		return parent;
-	}
-	public void setParent(String parent) {
-		this.parent = parent;
-	}
 	public String getDeleted() {
 		return deleted;
+	}
+	public String getChild() {
+		return child;
+	}
+	public void setChild(String child) {
+		this.child = child;
 	}
 	public void setDeleted(String deleted) {
 		this.deleted = deleted;

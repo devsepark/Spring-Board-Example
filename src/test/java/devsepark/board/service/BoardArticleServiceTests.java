@@ -43,7 +43,7 @@ public class BoardArticleServiceTests {
 		
 		search = new SearchVo();
 		search.pageCalculate(10);
-		search.setGroupId("1");
+		search.setGroupIdArray(new String[] {"1"});
 	}
 	
 	@Test

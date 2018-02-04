@@ -5,7 +5,11 @@
 
 	<!-- 게시판, 삭제여부, 검색 조건 -->
 	<sql id="includeBoardCriteria">
-		WHERE group_id=#{groupId} AND deleted=0
+		WHERE deleted=0 
+		AND 
+		<foreach item="item" index="index" open="(" close=")" separator="or" collection="groupIdArray">
+				${item} = group_id
+		</foreach>
 		<if test="searchKeyword!=null and searchKeyword!='' and searchTypeArray!=null and searchTypeArray!=''">
 			AND
 			<foreach item="item" index="index" open="(" close=")" separator="or" collection="searchTypeArray">
