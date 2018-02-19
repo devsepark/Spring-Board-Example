@@ -19,9 +19,9 @@ import devsepark.board.common.SearchVo;
 import devsepark.board.model.BoardArticle;
 import devsepark.board.model.BoardComment;
 import devsepark.board.model.BoardGroup;
-import devsepark.board.service.BoardGroupService;
 import devsepark.board.service.BoardArticleService;
 import devsepark.board.service.BoardCommentService;
+import devsepark.board.service.BoardGroupService;
 
 //게시판 컨트롤러, /board를 기본 경로로 매핑.
 @Controller
@@ -36,7 +36,6 @@ public class BoardArticleController {
 	private BoardGroupService boardGroupService;		//게시판 그룹 서비스
 	@Autowired
 	private BoardCommentService boardCommentService;	//게시판 댓글 서비스
-	
 	
 	
 	//리스트 페이지
@@ -108,7 +107,7 @@ public class BoardArticleController {
     @RequestMapping(value = "/{boardName}/article/{articleId}/form", method = RequestMethod.GET)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
    	public String articleUpdateForm(@PathVariable("boardName") String boardName
-   			, @PathVariable("articleId") String articleId, ModelMap modelMap) {
+   			, @PathVariable("articleId") String articleId, ModelMap modelMap, Authentication auth) {
     	
     	BoardArticle article = boardArticleService.selectArticleOne(articleId);
         if(article == null) {
@@ -118,7 +117,12 @@ public class BoardArticleController {
 		if(boardGroup == null) {
 			//TODO return 404error page
 		}
-		
+		UserDetails user = (UserDetails) auth.getPrincipal();
+		if(!article.getWriter().equals(user.getUsername())) {
+			//TODO return 권한 페이지
+			return "redirect:/board/" + boardName;
+		};
+		System.out.println("!!!!!!!!!"+user.getUsername());
     	modelMap.addAttribute("boardArticle", article);
     	modelMap.addAttribute("boardGroup", boardGroup);
     	
@@ -129,7 +133,13 @@ public class BoardArticleController {
     @RequestMapping(value = "/{boardName}/article/{articleId}", method = RequestMethod.PUT)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
    	public String articleUpdateSave(@PathVariable("boardName") String boardName
-   			, @PathVariable("articleId") String articleId, @ModelAttribute BoardArticle article) {
+   			, @PathVariable("articleId") String articleId, @ModelAttribute BoardArticle article, Authentication auth) {
+    	
+    	UserDetails user = (UserDetails) auth.getPrincipal();
+		if(!article.getWriter().equals(user.getUsername())) {
+			//TODO return 권한 페이지
+			return "redirect:/board/" + boardName;
+		};
     	
     	boardArticleService.updateArticle(article);
     	
@@ -167,7 +177,18 @@ public class BoardArticleController {
     //글 삭제
     @RequestMapping(value = "/{boardName}/article/{articleId}", method = RequestMethod.DELETE)
     @Secured({"ROLE_ADMIN", "ROLE_USER"})
-   	public String articleDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId) {
+   	public String articleDelete(@PathVariable("boardName") String boardName, @PathVariable("articleId") String articleId, Authentication auth) {
+    	
+    	BoardArticle article = boardArticleService.selectArticleOne(articleId);
+    	if(article == null) {
+    		//TODO return 404error page
+    	}
+    	
+    	UserDetails user = (UserDetails) auth.getPrincipal();
+		if(!article.getWriter().equals(user.getUsername())) {
+			//TODO return 권한 페이지
+			return "redirect:/board/" + boardName;
+		};
     	
     	boardArticleService.deleteArticleOne(articleId);
         
